@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrator Sign In | ApoCare Console</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/images/logo-icon.svg">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Core Stylesheets -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body style="background: #0A1128; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px;">
+
+<div style="background: #FFFFFF; border-radius: 24px; padding: 40px; max-width: 440px; width: 100%; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);">
+    <div style="text-align: center; margin-bottom: 28px;">
+        <img src="../assets/images/logo.svg" alt="ApoCare" height="44" style="margin-bottom: 12px;">
+        <h1 style="font-size: 22px; font-weight: 800; color: #0A1128; margin: 0 0 6px;">Administrator Console</h1>
+        <p style="color: #64748B; font-size: 13px; margin: 0;">Restricted access for platform management & audit.</p>
+    </div>
+
+    <!-- 1-Click Superadmin Demo Auto-fill -->
+    <div style="background: #E8F0F7; border: 1px solid #D2E2F0; border-radius: 12px; padding: 14px; text-align: center; margin-bottom: 20px;">
+        <div style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #034078; margin-bottom: 8px;">⚡ 1-Click Superadmin Demo Sign In</div>
+        <button type="button" id="adminDemoBtn" class="btn btn-primary btn-sm" style="width: 100%; padding: 10px; font-weight: 700; border-radius: 8px;">
+            Sign In as Pramita Sahu (Superadmin)
+        </button>
+    </div>
+
+    <form id="adminLoginForm">
+        <div style="margin-bottom: 14px;">
+            <label for="adminEmail" style="display: block; font-size: 12px; font-weight: 700; color: #334155; margin-bottom: 6px;">Admin Email</label>
+            <input type="email" id="adminEmail" value="pramitasahu07@gmail.com" required style="width: 100%; padding: 10px 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
+        </div>
+        <div style="margin-bottom: 20px;">
+            <label for="adminPass" style="display: block; font-size: 12px; font-weight: 700; color: #334155; margin-bottom: 6px;">Password</label>
+            <input type="password" id="adminPass" value="Admin@123" required style="width: 100%; padding: 10px 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
+        </div>
+        <button type="submit" class="btn btn-navy btn-block" style="width: 100%; padding: 12px; font-weight: 800; border-radius: 8px;">
+            Authorize Console Access →
+        </button>
+    </form>
+
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="../index.html" style="color: #64748B; font-size: 13px; text-decoration: none;">← Return to Public Homepage</a>
+    </div>
+</div>
+
+<!-- Core Scripts -->
+<script src="../assets/js/db.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/main.js"></script>
+<script>
+document.getElementById('adminDemoBtn').addEventListener('click', () => {
+    const res = window.apoAuth.loginDemo('admin');
+    if (res.success) {
+        window.showToast('Superadmin access granted!', 'success');
+        setTimeout(() => window.location.href = './dashboard.html', 500);
+    }
+});
+
+document.getElementById('adminLoginForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = document.getElementById('adminEmail').value.trim();
+    const pass = document.getElementById('adminPass').value.trim();
+    const res = window.apoAuth.login(email, pass);
+    if (res.success && res.user.role === 'admin') {
+        window.showToast('Superadmin access granted!', 'success');
+        setTimeout(() => window.location.href = './dashboard.html', 500);
+    } else {
+        alert('Invalid admin credentials. Please use the 1-click button or correct admin password.');
+    }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Specializations & Departments | ApoCare Admin</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/images/logo-icon.svg">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Core Stylesheets -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+</head>
+<body>
+
+<div class="dashboard-layout">
+    <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+
+    <div class="dashboard-main">
+        <header class="dashboard-topbar">
+            <div class="topbar-left">
+                <div class="topbar-page-title">Medical Specializations & Clinical Departments</div>
+            </div>
+            <div class="topbar-right">
+                <button type="button" onclick="document.getElementById('addSpecModal').style.display='flex'" class="btn btn-primary btn-sm">+ Add Department</button>
+            </div>
+        </header>
+
+        <main class="dashboard-content">
+            <div style="background: #FFFFFF; border: 1px solid #E1E8EE; border-radius: 18px; padding: 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 13px; text-align: left;">
+                        <thead>
+                            <tr style="border-bottom: 2px solid #F1F5F9; color: #64748B; font-size: 12px; text-transform: uppercase;">
+                                <th style="padding: 12px 14px;">Icon</th>
+                                <th style="padding: 12px 14px;">Specialization Name</th>
+                                <th style="padding: 12px 14px;">Clinical Scope & Description</th>
+                                <th style="padding: 12px 14px;">Active Doctors</th>
+                                <th style="padding: 12px 14px; text-align: right;">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminSpecsTableBody">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Add Specialization Modal -->
+<div id="addSpecModal" style="display: none; position: fixed; inset: 0; background: rgba(10, 17, 40, 0.7); z-index: 9999; align-items: center; justify-content: center;">
+    <div style="background: #FFFFFF; border-radius: 18px; padding: 28px; max-width: 440px; width: 90%;">
+        <h3 style="font-size: 18px; font-weight: 800; color: #0A1128; margin: 0 0 16px;">Add Medical Department</h3>
+        <form id="newSpecForm">
+            <div style="margin-bottom: 12px;">
+                <label style="display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 4px;">Department Name *</label>
+                <input type="text" id="newSpecName" required placeholder="e.g. Pulmonologist" style="width: 100%; padding: 8px 10px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 13px; box-sizing: border-box;">
+            </div>
+            <div style="margin-bottom: 12px;">
+                <label style="display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 4px;">Emoji Icon</label>
+                <input type="text" id="newSpecIcon" value="🩺" style="width: 100%; padding: 8px 10px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 13px; box-sizing: border-box;">
+            </div>
+            <div style="margin-bottom: 18px;">
+                <label style="display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 4px;">Description</label>
+                <textarea id="newSpecDesc" rows="3" placeholder="Clinical scope of practice..." style="width: 100%; padding: 8px 10px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 13px; box-sizing: border-box;"></textarea>
+            </div>
+            <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                <button type="button" onclick="document.getElementById('addSpecModal').style.display='none'" class="btn btn-outline btn-sm">Cancel</button>
+                <button type="submit" class="btn btn-primary btn-sm">Create Department</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Core Scripts -->
+<script src="../assets/js/db.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/dashboard.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    if (!window.apoAuth.isLoggedIn()) window.apoAuth.loginDemo('admin');
+    window.apoDash.renderSidebar('admin', 'specializations');
+
+    function renderSpecs() {
+        const specs = window.apoDB.getSpecializations();
+        const tbody = document.getElementById('adminSpecsTableBody');
+
+        tbody.innerHTML = specs.map(s => `
+            <tr style="border-bottom: 1px solid #F1F5F9;">
+                <td style="padding: 14px; font-size: 22px;">${s.icon || '🩺'}</td>
+                <td style="padding: 14px; font-weight: 700; color: #0A1128;">${s.name}</td>
+                <td style="padding: 14px; color: #4D6275; max-width: 320px;">${s.description}</td>
+                <td style="padding: 14px; font-weight: 800; color: #034078;">${s.doctor_count} Doctors</td>
+                <td style="padding: 14px; text-align: right;">
+                    <span style="background: #DCFCE7; color: #166534; font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 9999px;">Active</span>
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    document.getElementById('newSpecForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('newSpecName').value.trim();
+        const icon = document.getElementById('newSpecIcon').value.trim() || '🩺';
+        const description = document.getElementById('newSpecDesc').value.trim();
+
+        const nextId = Math.max(...window.apoDB.data.specializations.map(s => s.id), 0) + 1;
+        window.apoDB.data.specializations.push({
+            id: nextId,
+            name,
+            slug: name.toLowerCase().replace(/\s+/g, '-'),
+            icon,
+            description,
+            doctor_count: 0
+        });
+        window.apoDB.save();
+
+        document.getElementById('addSpecModal').style.display = 'none';
+        window.showToast(`Specialization ${name} added!`, 'success');
+        renderSpecs();
+    });
+
+    renderSpecs();
+});
+</script>
+</body>
+</html>

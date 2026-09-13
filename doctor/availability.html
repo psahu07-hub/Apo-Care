@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultation Hours & Availability | ApoCare</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/images/logo-icon.svg">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Core Stylesheets -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+</head>
+<body>
+
+<div class="dashboard-layout">
+    <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+
+    <div class="dashboard-main">
+        <header class="dashboard-topbar">
+            <div class="topbar-left">
+                <div class="topbar-page-title">Weekly Consultation Hours Schedule</div>
+            </div>
+        </header>
+
+        <main class="dashboard-content" style="max-width: 860px;">
+            <div style="background: #FFFFFF; border: 1px solid #E1E8EE; border-radius: 20px; padding: 32px; box-shadow: 0 4px 20px rgba(0,0,0,0.04);">
+                <div style="margin-bottom: 24px;">
+                    <h3 style="font-size: 18px; font-weight: 800; color: #0A1128; margin: 0 0 6px;">Manage Clinic Timetable & Capacity</h3>
+                    <p style="color: #64748B; font-size: 14px; margin: 0;">Set your active OPD consultation windows and patient capacity per session.</p>
+                </div>
+
+                <form id="scheduleForm">
+                    <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px;" id="daysScheduleList">
+                        <!-- Filled by JS -->
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="padding: 12px 28px; font-size: 14px; font-weight: 700; border-radius: 10px;">
+                        Save Weekly Schedule
+                    </button>
+                </form>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Core Scripts -->
+<script src="../assets/js/db.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/dashboard.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    if (!window.apoAuth.isLoggedIn()) window.apoAuth.loginDemo('doctor');
+    const user = window.apoAuth.getCurrentUser();
+    window.apoDash.renderSidebar('doctor', 'availability');
+
+    const doctorId = user ? (user.doctor_id || 1) : 1;
+    const doc = window.apoDB.getDoctorById(doctorId);
+    const schedule = (doc && doc.schedule) ? doc.schedule : [
+        { day: 'Monday', is_available: true, start_time: '08:00', end_time: '16:00', max_patients: 20 },
+        { day: 'Tuesday', is_available: true, start_time: '08:00', end_time: '16:00', max_patients: 20 },
+        { day: 'Wednesday', is_available: true, start_time: '08:00', end_time: '16:00', max_patients: 20 },
+        { day: 'Thursday', is_available: true, start_time: '08:00', end_time: '16:00', max_patients: 20 },
+        { day: 'Friday', is_available: true, start_time: '08:00', end_time: '16:00', max_patients: 20 },
+        { day: 'Saturday', is_available: false, start_time: '09:00', end_time: '13:00', max_patients: 0 },
+        { day: 'Sunday', is_available: false, start_time: '09:00', end_time: '13:00', max_patients: 0 }
+    ];
+
+    const container = document.getElementById('daysScheduleList');
+    container.innerHTML = schedule.map((s, idx) => `
+        <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 12px; padding: 16px; display: grid; grid-template-columns: 140px 100px 1fr 1fr 120px; gap: 14px; align-items: center;" class="schedule-row">
+            <strong style="color: #0A1128; font-size: 15px;">${s.day}</strong>
+            
+            <label style="display: flex; align-items: center; gap: 6px; font-size: 13px; color: #334155; cursor: pointer;">
+                <input type="checkbox" name="avail_${idx}" ${s.is_available ? 'checked' : ''} style="accent-color: #034078; width: 16px; height: 16px;">
+                <span>Active</span>
+            </label>
+
+            <div>
+                <label style="display: block; font-size: 11px; color: #64748B; font-weight: 700; margin-bottom: 4px;">START TIME</label>
+                <input type="time" name="start_${idx}" value="${s.start_time || '09:00'}" style="width: 100%; padding: 6px 10px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 13px; background: #fff;">
+            </div>
+
+            <div>
+                <label style="display: block; font-size: 11px; color: #64748B; font-weight: 700; margin-bottom: 4px;">END TIME</label>
+                <input type="time" name="end_${idx}" value="${s.end_time || '17:00'}" style="width: 100%; padding: 6px 10px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 13px; background: #fff;">
+            </div>
+
+            <div>
+                <label style="display: block; font-size: 11px; color: #64748B; font-weight: 700; margin-bottom: 4px;">MAX PASSES</label>
+                <input type="number" name="max_${idx}" min="1" max="100" value="${s.max_patients || 20}" style="width: 100%; padding: 6px 10px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 13px; background: #fff;">
+            </div>
+        </div>
+    `).join('');
+
+    document.getElementById('scheduleForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const updatedSchedule = schedule.map((s, idx) => ({
+            day: s.day,
+            is_available: document.querySelector(`[name="avail_${idx}"]`).checked,
+            start_time: document.querySelector(`[name="start_${idx}"]`).value,
+            end_time: document.querySelector(`[name="end_${idx}"]`).value,
+            max_patients: Number(document.querySelector(`[name="max_${idx}"]`).value) || 0
+        }));
+
+        const availableDaysStr = updatedSchedule.filter(s => s.is_available).map(s => s.day.substring(0, 3)).join(', ');
+
+        window.apoDB.updateDoctor(doctorId, {
+            schedule: updatedSchedule,
+            availability_days: availableDaysStr || 'By Appointment'
+        });
+
+        window.showToast('Weekly consultation schedule saved successfully!', 'success');
+    });
+});
+</script>
+</body>
+</html>

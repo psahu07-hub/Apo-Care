@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In to ApoCare | Patient, Doctor & Admin Hub</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/images/logo-icon.svg">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Core Stylesheets -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body style="background: linear-gradient(180deg, #EDF4FA 0%, #FEFCFB 100%); min-height: 100vh; display: flex; flex-direction: column;">
+
+<!-- Header Navigation Bar -->
+<header class="header-navbar">
+    <div class="container">
+        <div class="nav-container">
+            <a href="../index.html" class="brand-logo">
+                <img src="../assets/images/logo.svg" alt="ApoCare" height="48">
+            </a>
+
+            <div class="nav-actions">
+                <a href="../find-doctors.html" class="btn btn-outline btn-sm">Find Doctors</a>
+                <a href="./register.html" class="btn btn-primary btn-sm">Create Account</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="container" style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px 16px;">
+    <div style="background: #FFFFFF; border: 1px solid #E1E8EE; border-radius: 24px; padding: 36px; max-width: 460px; width: 100%; box-shadow: 0 15px 35px -5px rgba(10, 17, 40, 0.08);">
+        <div style="text-align: center; margin-bottom: 24px;">
+            <h1 style="font-size: 24px; font-weight: 800; color: #0A1128; margin: 0 0 6px;">Sign In to ApoCare</h1>
+            <p style="color: #64748B; font-size: 14px; margin: 0;">Access your consultation records, queue passes, or doctor panel.</p>
+        </div>
+
+        <!-- 1-Click Demo Accounts Switcher -->
+        <div style="background: #F8FAFC; border: 1.5px dashed #CBD5E1; border-radius: 14px; padding: 16px; margin-bottom: 24px;">
+            <div style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #034078; margin-bottom: 10px; text-align: center;">⚡ Instant 1-Click Demo Logins</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;">
+                <button type="button" onclick="loginAsDemo('patient')" style="background: #FFFFFF; border: 1px solid #D2E2F0; border-radius: 8px; padding: 8px 4px; font-size: 12px; font-weight: 700; color: #034078; cursor: pointer; text-align: center;">
+                    👤 Patient
+                </button>
+                <button type="button" onclick="loginAsDemo('doctor')" style="background: #FFFFFF; border: 1px solid #D2E2F0; border-radius: 8px; padding: 8px 4px; font-size: 12px; font-weight: 700; color: #034078; cursor: pointer; text-align: center;">
+                    🩺 Doctor
+                </button>
+                <button type="button" onclick="loginAsDemo('admin')" style="background: #FFFFFF; border: 1px solid #D2E2F0; border-radius: 8px; padding: 8px 4px; font-size: 12px; font-weight: 700; color: #034078; cursor: pointer; text-align: center;">
+                    🛡️ Admin
+                </button>
+            </div>
+        </div>
+
+        <!-- Manual Login Form -->
+        <form id="loginForm">
+            <div style="margin-bottom: 16px;">
+                <label for="loginEmail" style="display: block; font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 6px;">Email Address</label>
+                <input type="email" id="loginEmail" required value="riya.demo@example.com" placeholder="name@example.com" style="width: 100%; padding: 12px 14px; border: 1.5px solid #CBD5E1; border-radius: 10px; font-size: 14px; outline: none; box-sizing: border-box;">
+            </div>
+
+            <div style="margin-bottom: 18px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <label for="loginPassword" style="font-size: 13px; font-weight: 700; color: #334155;">Password</label>
+                    <a href="./forgot-password.html" style="font-size: 12px; color: #034078; font-weight: 600; text-decoration: none;">Forgot Password?</a>
+                </div>
+                <input type="password" id="loginPassword" required value="Patient@123" placeholder="••••••••" style="width: 100%; padding: 12px 14px; border: 1.5px solid #CBD5E1; border-radius: 10px; font-size: 14px; outline: none; box-sizing: border-box;">
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block" style="width: 100%; padding: 14px; font-size: 15px; font-weight: 800; border-radius: 10px; cursor: pointer; box-shadow: 0 4px 15px rgba(3, 64, 120, 0.3);">
+                Sign In to Account →
+            </button>
+        </form>
+
+        <div style="text-align: center; margin-top: 20px; font-size: 14px; color: #64748B;">
+            Don't have a patient account? <a href="./register.html" style="color: #034078; font-weight: 700; text-decoration: none;">Register Free</a>
+        </div>
+    </div>
+</div>
+
+<!-- Core Scripts -->
+<script src="../assets/js/db.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/main.js"></script>
+<script>
+function loginAsDemo(role) {
+    const res = window.apoAuth.loginDemo(role);
+    if (res.success) {
+        window.showToast(`Logged in as ${res.user.role.toUpperCase()} successfully!`, 'success');
+        setTimeout(() => {
+            if (res.user.role === 'admin') window.location.href = '../admin/dashboard.html';
+            else if (res.user.role === 'doctor') window.location.href = '../doctor/dashboard.html';
+            else window.location.href = '../patient/dashboard.html';
+        }, 600);
+    }
+}
+
+document.getElementById('loginForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value.trim();
+
+    const res = window.apoAuth.login(email, password);
+    if (res.success) {
+        window.showToast(`Welcome back, ${res.user.name}!`, 'success');
+        setTimeout(() => {
+            if (res.user.role === 'admin') window.location.href = '../admin/dashboard.html';
+            else if (res.user.role === 'doctor') window.location.href = '../doctor/dashboard.html';
+            else window.location.href = '../patient/dashboard.html';
+        }, 600);
+    } else {
+        alert(res.message);
+    }
+});
+</script>
+</body>
+</html>

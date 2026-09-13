@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Financial Hub & Platform Revenue | ApoCare Admin</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/images/logo-icon.svg">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Core Stylesheets -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+</head>
+<body>
+
+<div class="dashboard-layout">
+    <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+
+    <div class="dashboard-main">
+        <header class="dashboard-topbar">
+            <div class="topbar-left">
+                <div class="topbar-page-title">Platform Revenue & Financial Ledger</div>
+            </div>
+        </header>
+
+        <main class="dashboard-content">
+            <!-- Metrics Row -->
+            <div class="metrics-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin-bottom: 28px;">
+                <div class="metric-card" style="background: #fff; border: 1px solid #E1E8EE; border-radius: 16px; padding: 20px;">
+                    <div style="font-size: 12px; color: #64748B; font-weight: 700; text-transform: uppercase;">Gross Processed Volume</div>
+                    <div id="adminGrossRev" style="font-size: 26px; font-weight: 800; color: #0A1128; margin: 4px 0;">₹5,825.00</div>
+                    <div style="font-size: 11px; color: #059669; font-weight: 600;">Direct Consultations</div>
+                </div>
+
+                <div class="metric-card" style="background: #fff; border: 1px solid #E1E8EE; border-radius: 16px; padding: 20px;">
+                    <div style="font-size: 12px; color: #64748B; font-weight: 700; text-transform: uppercase;">Platform Pass Commission</div>
+                    <div id="adminPlatformComm" style="font-size: 26px; font-weight: 800; color: #034078; margin: 4px 0;">₹375.00</div>
+                    <div style="font-size: 11px; color: #034078; font-weight: 600;">100% Platform Margin</div>
+                </div>
+
+                <div class="metric-card" style="background: #fff; border: 1px solid #E1E8EE; border-radius: 16px; padding: 20px;">
+                    <div style="font-size: 12px; color: #64748B; font-weight: 700; text-transform: uppercase;">Doctor Payout Settlements</div>
+                    <div id="adminDoctorPayouts" style="font-size: 26px; font-weight: 800; color: #059669; margin: 4px 0;">₹5,450.00</div>
+                    <div style="font-size: 11px; color: #64748B;">Disbursed to Clinic Accounts</div>
+                </div>
+            </div>
+
+            <!-- Ledger Table -->
+            <div style="background: #FFFFFF; border: 1px solid #E1E8EE; border-radius: 18px; padding: 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 13px; text-align: left;">
+                        <thead>
+                            <tr style="border-bottom: 2px solid #F1F5F9; color: #64748B; font-size: 12px; text-transform: uppercase;">
+                                <th style="padding: 12px 14px;">Transaction Ref</th>
+                                <th style="padding: 12px 14px;">Booking Ref</th>
+                                <th style="padding: 12px 14px;">Patient</th>
+                                <th style="padding: 12px 14px;">Doctor</th>
+                                <th style="padding: 12px 14px;">Total Paid</th>
+                                <th style="padding: 12px 14px;">Platform Fee</th>
+                                <th style="padding: 12px 14px;">Doctor Payout</th>
+                                <th style="padding: 12px 14px;">Gateway</th>
+                                <th style="padding: 12px 14px;">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminTxnTableBody">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Core Scripts -->
+<script src="../assets/js/db.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/dashboard.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    if (!window.apoAuth.isLoggedIn()) window.apoAuth.loginDemo('admin');
+    window.apoDash.renderSidebar('admin', 'transactions');
+
+    const txns = window.apoDB.getTransactions();
+    const stats = window.apoDB.getPlatformStats();
+
+    document.getElementById('adminGrossRev').innerText = `₹${stats.grossRevenue.toFixed(2)}`;
+    document.getElementById('adminPlatformComm').innerText = `₹${stats.platformCommission.toFixed(2)}`;
+    document.getElementById('adminDoctorPayouts').innerText = `₹${(stats.grossRevenue - stats.platformCommission).toFixed(2)}`;
+
+    const tbody = document.getElementById('adminTxnTableBody');
+    tbody.innerHTML = txns.map(t => `
+        <tr style="border-bottom: 1px solid #F1F5F9;">
+            <td style="padding: 14px; font-weight: 700; color: #034078;">${t.transaction_ref}</td>
+            <td style="padding: 14px; font-weight: 600;">${t.booking_ref}</td>
+            <td style="padding: 14px;">${t.patient_name}</td>
+            <td style="padding: 14px;">${t.doctor_name}</td>
+            <td style="padding: 14px; font-weight: 800; color: #0A1128;">₹${t.total_amount.toFixed(2)}</td>
+            <td style="padding: 14px; font-weight: 700; color: #034078;">₹${t.platform_fee.toFixed(2)}</td>
+            <td style="padding: 14px; font-weight: 700; color: #059669;">₹${t.amount.toFixed(2)}</td>
+            <td style="padding: 14px; color: #64748B;">${t.gateway}</td>
+            <td style="padding: 14px;">
+                <span style="background: #DCFCE7; color: #166534; font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 9999px;">
+                    ${t.payment_status}
+                </span>
+            </td>
+        </tr>
+    `).join('');
+});
+</script>
+</body>
+</html>

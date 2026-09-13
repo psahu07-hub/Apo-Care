@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Doctors & Medical Specialists | ApoCare</title>
+    <meta name="description" content="Search verified medical practitioners and book digital consultation passes across Bankura, Durgapur, Kolkata and South Bengal.">
+    <link rel="icon" type="image/svg+xml" href="./assets/images/logo-icon.svg">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Core Stylesheets -->
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body style="background: #F8FAFC;">
+
+<!-- Header Navigation Bar -->
+<header class="header-navbar">
+    <div class="container">
+        <div class="nav-container">
+            <a href="./index.html" class="brand-logo">
+                <img src="./assets/images/logo.svg" alt="ApoCare" height="48">
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="./index.html" class="nav-link">Home</a></li>
+                <li><a href="./find-doctors.html" class="nav-link active">Find Doctors</a></li>
+                <li><a href="./index.html#specialties" class="nav-link">Specialties</a></li>
+                <li><a href="./index.html#health-packages" class="nav-link">Health Packages</a></li>
+                <li><a href="./doctor/register.html" class="nav-link">For Doctors</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <div id="navAuthContainer" style="display: inline-flex; align-items: center; gap: 8px;">
+                    <a href="./auth/login.html" class="btn btn-outline btn-sm">Sign In</a>
+                    <a href="./auth/register.html" class="btn btn-primary btn-sm">Register</a>
+                </div>
+                <button type="button" class="mobile-toggle" id="mobileNavToggle" aria-label="Toggle Menu">☰</button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Mobile Navigation Drawer -->
+<div class="mobile-drawer" id="mobileNavDrawer" style="display: none;">
+    <div style="position: fixed; inset: 0; background: rgba(10, 17, 40, 0.6); z-index: 2000;" id="mobileNavClose"></div>
+    <div style="position: fixed; top: 0; right: 0; bottom: 0; width: 300px; background: #FEFCFB; z-index: 2001; padding: 24px; display: flex; flex-direction: column; box-shadow: -4px 0 20px rgba(0,0,0,0.15);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+            <img src="./assets/images/logo.svg" alt="ApoCare" height="38">
+            <button type="button" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #0A1128;" onclick="document.getElementById('mobileNavDrawer').style.display='none';">&times;</button>
+        </div>
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 14px; font-size: 16px; font-weight: 600;">
+            <li><a href="./index.html" style="color: #0A1128;">Home</a></li>
+            <li><a href="./find-doctors.html" style="color: #034078;">Find Doctors</a></li>
+            <li><a href="./doctor/register.html" style="color: #0A1128;">For Doctors & Clinics</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- Main Discovery Search Page -->
+<div class="container" style="padding: 40px 16px 80px;">
+    <!-- Breadcrumb & Title -->
+    <div style="margin-bottom: 24px;">
+        <div style="font-size: 13px; color: #64748B; margin-bottom: 6px;">
+            <a href="./index.html" style="color: inherit; text-decoration: none;">Home</a> &gt; <span style="color: #034078; font-weight: 600;">Doctor Directory</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+            <h1 style="font-size: 28px; font-weight: 800; color: #0A1128; margin: 0;">Verified Medical Specialists</h1>
+            <div id="resultsCount" style="font-size: 14px; font-weight: 700; color: #034078; background: #E8F0F7; padding: 6px 14px; border-radius: 9999px;">
+                Loading specialists...
+            </div>
+        </div>
+    </div>
+
+    <!-- Layout Grid: Left Filters Sidebar + Right Doctor Cards -->
+    <div style="display: grid; grid-template-columns: 280px 1fr; gap: 30px; align-items: flex-start;" class="search-layout-grid">
+        <!-- Filter Sidebar -->
+        <aside style="background: #FFFFFF; border: 1px solid #E1E8EE; border-radius: 18px; padding: 24px; position: sticky; top: 90px; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #F1F5F9; padding-bottom: 12px;">
+                <h3 style="font-size: 16px; font-weight: 700; color: #0A1128; margin: 0;">Filter Specialists</h3>
+                <button type="button" id="resetFiltersLink" onclick="location.href='./find-doctors.html'" style="background: none; border: none; font-size: 12px; color: #034078; font-weight: 700; cursor: pointer;">Reset All</button>
+            </div>
+
+            <!-- Search by Name/Clinic -->
+            <div style="margin-bottom: 18px;">
+                <label for="searchQuery" style="display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 6px; text-transform: uppercase;">Doctor / Clinic Name</label>
+                <input type="text" id="searchQuery" placeholder="Search doctor or clinic..." style="width: 100%; padding: 10px 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
+            </div>
+
+            <!-- Location Filter -->
+            <div style="margin-bottom: 18px;">
+                <label for="filterLocation" style="display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 6px; text-transform: uppercase;">City / Region</label>
+                <select id="filterLocation" style="width: 100%; padding: 10px 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 14px; outline: none; background: #fff;">
+                    <option value="">All Regions</option>
+                    <option value="Bankura">Bankura</option>
+                    <option value="Durgapur">Durgapur</option>
+                    <option value="Bishnupur">Bishnupur</option>
+                    <option value="Asansol">Asansol</option>
+                    <option value="Raniganj">Raniganj</option>
+                    <option value="Purulia">Purulia</option>
+                    <option value="Kolkata">Kolkata</option>
+                </select>
+            </div>
+
+            <!-- Specialization Filter -->
+            <div style="margin-bottom: 18px;">
+                <label for="filterSpecialization" style="display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 6px; text-transform: uppercase;">Specialization</label>
+                <select id="filterSpecialization" style="width: 100%; padding: 10px 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 14px; outline: none; background: #fff;">
+                    <option value="">All Specializations</option>
+                    <option value="Cardiologist">Cardiologist (Heart)</option>
+                    <option value="Dermatologist">Dermatologist (Skin)</option>
+                    <option value="Neurologist">Neurologist (Brain)</option>
+                    <option value="Pediatrician">Pediatrician (Child)</option>
+                    <option value="Orthopedic">Orthopedic (Bones)</option>
+                    <option value="Gynecologist">Gynecologist (Women)</option>
+                    <option value="Dentist">Dentist (Dental)</option>
+                    <option value="General Physician">General Physician</option>
+                    <option value="ENT Specialist">ENT Specialist</option>
+                    <option value="Ophthalmologist">Ophthalmologist (Eyes)</option>
+                </select>
+            </div>
+
+            <!-- Facility Type Filter -->
+            <div style="margin-bottom: 18px;">
+                <label for="filterType" style="display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 6px; text-transform: uppercase;">Facility Type</label>
+                <select id="filterType" style="width: 100%; padding: 10px 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 14px; outline: none; background: #fff;">
+                    <option value="">All Types (Clinics & Hospitals)</option>
+                    <option value="Clinic">Specialty Clinics</option>
+                    <option value="Hospital">Multi-Specialty Hospitals</option>
+                </select>
+            </div>
+
+            <!-- Gender Filter -->
+            <div style="margin-bottom: 18px;">
+                <label for="filterGender" style="display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 6px; text-transform: uppercase;">Doctor Gender</label>
+                <select id="filterGender" style="width: 100%; padding: 10px 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 14px; outline: none; background: #fff;">
+                    <option value="">Any Gender</option>
+                    <option value="Female">Female Doctor</option>
+                    <option value="Male">Male Doctor</option>
+                </select>
+            </div>
+
+            <!-- Fee Range Slider -->
+            <div style="margin-bottom: 18px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <label for="filterFeeSlider" style="font-size: 12px; font-weight: 700; color: #475569; text-transform: uppercase;">Max Fee</label>
+                    <span id="feeValueDisplay" style="font-size: 13px; font-weight: 800; color: #034078;">₹1,000</span>
+                </div>
+                <input type="range" id="filterFeeSlider" min="200" max="1000" step="50" value="1000" style="width: 100%; accent-color: #034078; cursor: pointer;">
+            </div>
+
+            <!-- Sort By -->
+            <div>
+                <label for="filterSort" style="display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 6px; text-transform: uppercase;">Sort Results</label>
+                <select id="filterSort" style="width: 100%; padding: 10px 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 14px; outline: none; background: #fff;">
+                    <option value="rating_desc">Top Rated First</option>
+                    <option value="experience_desc">Most Experienced First</option>
+                    <option value="fee_asc">Fee: Low to High</option>
+                    <option value="fee_desc">Fee: High to Low</option>
+                </select>
+            </div>
+        </aside>
+
+        <!-- Right Side Doctor Results Grid -->
+        <main>
+            <div id="doctorResultsGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px;">
+                <!-- Dynamically populated by search.js -->
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Responsive Layout Media Query Styles -->
+<style>
+@media (max-width: 900px) {
+    .search-layout-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+</style>
+
+<!-- Footer -->
+<footer style="background: #0A1128; color: #94A3B8; padding: 40px 0 20px; border-top: 1px solid #1E293B; margin-top: 60px;">
+    <div class="container" style="text-align: center; font-size: 13px;">
+        &copy; 2026 ApoCare Healthcare Network. 100% Client-Side Static Edition for GitHub Pages.
+    </div>
+</footer>
+
+<!-- Core Scripts -->
+<script src="./assets/js/db.js"></script>
+<script src="./assets/js/auth.js"></script>
+<script src="./assets/js/main.js"></script>
+<script src="./assets/js/search.js"></script>
+</body>
+</html>

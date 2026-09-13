@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="iconBlueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1282A2" />
+      <stop offset="50%" stop-color="#034078" />
+      <stop offset="100%" stop-color="#001F54" />
+    </linearGradient>
+    <linearGradient id="iconLightBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1282A2" />
+      <stop offset="100%" stop-color="#034078" />
+    </linearGradient>
+    <linearGradient id="iconTealGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1282A2" />
+      <stop offset="60%" stop-color="#034078" />
+      <stop offset="100%" stop-color="#001F54" />
+    </linearGradient>
+    <linearGradient id="iconLeafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1282A2" />
+      <stop offset="100%" stop-color="#034078" />
+    </linearGradient>
+  </defs>
+
+  <!-- Heart Background Outline -->
+  <path d="M 200,80 C 180,35 120,25 90,60 C 60,95 60,145 100,185 L 200,280" 
+        fill="none" stroke="url(#iconLightBlue)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" />
+  
+  <path d="M 200,80 C 220,35 280,25 310,60 C 340,95 340,145 300,185 L 200,280" 
+        fill="none" stroke="url(#iconTealGrad)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" />
+
+  <!-- Stethoscope -->
+  <g stroke="#001F54" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 125,65 C 125,85 135,105 150,115" />
+    <path d="M 105,65 C 105,85 95,105 80,115" />
+    <path d="M 80,115 C 70,155 130,190 155,165" />
+    <circle cx="125" cy="65" r="6" fill="#0A1128" stroke="none" />
+    <circle cx="105" cy="65" r="6" fill="#0A1128" stroke="none" />
+  </g>
+
+  <path d="M 155,165 C 185,210 250,220 290,190 C 320,165 310,200 295,215" 
+        fill="none" stroke="#001F54" stroke-width="7" stroke-linecap="round" />
+  <circle cx="305" cy="225" r="16" fill="#034078" stroke="#001F54" stroke-width="5" />
+  <circle cx="305" cy="225" r="7" fill="#FEFCFB" />
+
+  <!-- Pulse Wave -->
+  <path d="M 245,120 L 265,120 L 275,90 L 285,145 L 295,105 L 305,120 L 330,120" 
+        fill="none" stroke="#1282A2" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+
+  <!-- Center "A" Monogram -->
+  <g>
+    <path d="M 200,60 L 145,215 C 155,215 165,215 175,215 L 188,178 L 212,178 L 225,215 C 235,215 245,215 255,215 L 200,60 Z" 
+          fill="url(#iconBlueGrad)" />
+    <polygon points="200,100 192,155 208,155" fill="#FEFCFB" />
+    
+    <!-- Medical Plus Cross -->
+    <g fill="#1282A2">
+      <rect x="195" y="145" width="10" height="28" rx="3" />
+      <rect x="186" y="154" width="28" height="10" rx="3" />
+    </g>
+  </g>
+
+  <!-- Green Leaf Hand -->
+  <path d="M 75,195 C 75,195 95,255 200,270 C 240,275 270,255 270,255 C 270,255 220,250 170,220 C 130,195 100,180 75,195 Z" 
+        fill="url(#iconLeafGrad)" />
+</svg>

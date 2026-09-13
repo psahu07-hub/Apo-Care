@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Payment Checkout | ApoCare</title>
+    <link rel="icon" type="image/svg+xml" href="./assets/images/logo-icon.svg">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Core Stylesheets -->
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body style="background: #F8FAFC;">
+
+<!-- Header Navigation Bar -->
+<header class="header-navbar">
+    <div class="container">
+        <div class="nav-container">
+            <a href="./index.html" class="brand-logo">
+                <img src="./assets/images/logo.svg" alt="ApoCare" height="48">
+            </a>
+
+            <div style="font-size: 13px; font-weight: 700; color: #059669; display: flex; align-items: center; gap: 6px;">
+                <span>🔒</span> 256-Bit SSL Encrypted Checkout
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="container" style="padding: 40px 16px 80px; max-width: 860px;" id="checkoutContainer">
+    <div style="margin-bottom: 24px;">
+        <h1 style="font-size: 26px; font-weight: 800; color: #0A1128; margin: 0 0 6px;">Complete Your Consultation Payment</h1>
+        <p style="color: #64748B; font-size: 14px; margin: 0;">Instant confirmation and digital queue pass will be generated upon successful authorization.</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 340px; gap: 24px; align-items: flex-start;" class="checkout-grid">
+        <!-- Left: Payment Options -->
+        <div style="background: #FFFFFF; border: 1px solid #E1E8EE; border-radius: 18px; padding: 26px; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+            <h3 style="font-size: 16px; font-weight: 800; color: #0A1128; margin: 0 0 16px;">Select Payment Method</h3>
+
+            <!-- Method Switcher Pills -->
+            <div style="display: flex; gap: 10px; margin-bottom: 24px; border-bottom: 1px solid #E2E8F0; padding-bottom: 14px; flex-wrap: wrap;">
+                <button type="button" class="payment-tab active" data-method="UPI" style="padding: 8px 16px; border-radius: 8px; border: 1.5px solid #034078; background: #034078; color: #fff; font-weight: 700; font-size: 13px; cursor: pointer;">
+                    ⚡ UPI & QR Code
+                </button>
+                <button type="button" class="payment-tab" data-method="Card" style="padding: 8px 16px; border-radius: 8px; border: 1.5px solid #CBD5E1; background: #fff; color: #334155; font-weight: 700; font-size: 13px; cursor: pointer;">
+                    💳 Credit / Debit Card
+                </button>
+                <button type="button" class="payment-tab" data-method="NetBanking" style="padding: 8px 16px; border-radius: 8px; border: 1.5px solid #CBD5E1; background: #fff; color: #334155; font-weight: 700; font-size: 13px; cursor: pointer;">
+                    🏦 Net Banking
+                </button>
+                <button type="button" class="payment-tab" data-method="Clinic" style="padding: 8px 16px; border-radius: 8px; border: 1.5px solid #CBD5E1; background: #fff; color: #334155; font-weight: 700; font-size: 13px; cursor: pointer;">
+                    🏥 Pay at Clinic
+                </button>
+            </div>
+
+            <!-- UPI Panel -->
+            <div class="payment-panel" id="panel_upi" style="display: block;">
+                <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 14px; padding: 20px; text-align: center; margin-bottom: 16px;">
+                    <div style="font-weight: 700; color: #0A1128; font-size: 14px; margin-bottom: 10px;">Scan QR with Any UPI App</div>
+                    <!-- Mock QR Code SVG -->
+                    <div style="width: 150px; height: 150px; margin: 0 auto 12px; background: #fff; padding: 8px; border-radius: 8px; border: 1px solid #CBD5E1; display: flex; align-items: center; justify-content: center;">
+                        <svg width="130" height="130" viewBox="0 0 100 100" fill="#034078">
+                            <rect width="30" height="30" x="10" y="10" />
+                            <rect width="14" height="14" x="18" y="18" fill="#fff" />
+                            <rect width="30" height="30" x="60" y="10" />
+                            <rect width="14" height="14" x="68" y="18" fill="#fff" />
+                            <rect width="30" height="30" x="10" y="60" />
+                            <rect width="14" height="14" x="18" y="68" fill="#fff" />
+                            <rect width="10" height="10" x="45" y="45" />
+                            <rect width="15" height="5" x="60" y="60" />
+                            <rect width="10" height="15" x="75" y="70" />
+                            <rect width="8" height="8" x="48" y="65" />
+                        </svg>
+                    </div>
+                    <div style="font-size: 12px; color: #64748B;">Supports Google Pay &bull; PhonePe &bull; Paytm &bull; BHIM &bull; CRED</div>
+                </div>
+
+                <div style="margin-bottom: 16px;">
+                    <label for="upiVpa" style="display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 6px;">Or Enter UPI ID / VPA</label>
+                    <input type="text" id="upiVpa" value="riya@okaxis" placeholder="yourname@upi" style="width: 100%; padding: 10px 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
+                </div>
+            </div>
+
+            <!-- Card Panel -->
+            <div class="payment-panel" id="panel_card" style="display: none;">
+                <div style="margin-bottom: 14px;">
+                    <label for="cardNumber" style="display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 6px;">Card Number</label>
+                    <input type="text" id="cardNumber" value="4532 •••• •••• 8821" placeholder="Card number" style="width: 100%; padding: 10px 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px;">
+                    <div>
+                        <label for="cardExpiry" style="display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 6px;">Expiry (MM/YY)</label>
+                        <input type="text" id="cardExpiry" value="08/29" placeholder="MM/YY" style="width: 100%; padding: 10px 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
+                    </div>
+                    <div>
+                        <label for="cardCvv" style="display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 6px;">CVV / CVC</label>
+                        <input type="password" id="cardCvv" value="782" maxlength="4" placeholder="CVV" style="width: 100%; padding: 10px 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Net Banking Panel -->
+            <div class="payment-panel" id="panel_netbanking" style="display: none;">
+                <div style="margin-bottom: 14px;">
+                    <label style="display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 8px;">Select Popular Bank</label>
+                    <select style="width: 100%; padding: 10px 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 14px; outline: none; background: #fff;">
+                        <option value="HDFC">HDFC Bank</option>
+                        <option value="SBI">State Bank of India (SBI)</option>
+                        <option value="ICICI">ICICI Bank</option>
+                        <option value="Axis">Axis Bank</option>
+                        <option value="PNB">Punjab National Bank</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Pay at Clinic Panel -->
+            <div class="payment-panel" id="panel_clinic" style="display: none;">
+                <div style="background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 10px; padding: 14px; font-size: 13px; color: #92400E; line-height: 1.5;">
+                    💡 You can pay directly at the hospital or clinic reception desk during patient check-in via Cash or POS Machine.
+                </div>
+            </div>
+
+            <button type="button" id="processPaymentBtn" class="btn btn-primary btn-block" style="width: 100%; padding: 14px; font-size: 16px; font-weight: 800; border-radius: 10px; margin-top: 20px; cursor: pointer; box-shadow: 0 4px 15px rgba(3, 64, 120, 0.3);">
+                Pay <span id="payButtonAmount">₹425.00</span> & Confirm Slot
+            </button>
+        </div>
+
+        <!-- Right: Order Summary Card -->
+        <aside style="position: sticky; top: 90px;">
+            <div style="background: #FFFFFF; border: 1px solid #E1E8EE; border-radius: 18px; padding: 22px; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+                <h3 style="font-size: 15px; font-weight: 800; color: #0A1128; margin: 0 0 14px; border-bottom: 1px solid #F1F5F9; padding-bottom: 8px;">Order Details</h3>
+
+                <div style="font-size: 13px; color: #4D6275; display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px;">
+                    <div>
+                        <strong id="checkoutDoctorName" style="color: #0A1128; font-size: 14px;">Doctor Name</strong>
+                        <div id="checkoutDoctorSpec" style="color: #034078; font-size: 12px; font-weight: 600;">Specialization</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; border-top: 1px dashed #E2E8F0; padding-top: 8px;">
+                        <span>Date:</span>
+                        <strong id="checkoutDate" style="color: #0A1128;">2026-09-15</strong>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>Time Window:</span>
+                        <strong id="checkoutTimeSlot" style="color: #0A1128;">10:30 AM</strong>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>Patient:</span>
+                        <strong id="checkoutPatientName" style="color: #0A1128;">Patient Name</strong>
+                    </div>
+                </div>
+
+                <div style="border-top: 1px solid #E2E8F0; padding-top: 12px; font-size: 13px; display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px;">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>Consultation Fee:</span>
+                        <span id="checkoutDoctorFee" style="font-weight: 600;">₹400.00</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>Priority Digital Pass:</span>
+                        <span id="checkoutPlatformFee" style="font-weight: 600;">₹25.00</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 16px; font-weight: 800; color: #034078; border-top: 1px solid #E2E8F0; padding-top: 8px; margin-top: 4px;">
+                        <span>Total:</span>
+                        <span id="checkoutTotalAmount">₹425.00</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+</div>
+
+<!-- Realistic Processing Modal -->
+<div id="paymentProcessingModal" style="display: none; position: fixed; inset: 0; background: rgba(10, 17, 40, 0.85); z-index: 99999; align-items: center; justify-content: center; backdrop-filter: blur(4px);">
+    <div style="background: #FFFFFF; border-radius: 20px; padding: 40px; text-align: center; max-width: 400px; width: 90%; box-shadow: 0 25px 50px rgba(0,0,0,0.3);">
+        <div style="width: 60px; height: 60px; border: 4px solid #E2E8F0; border-top-color: #034078; border-radius: 50%; animation: spinLoader 0.8s linear infinite; margin: 0 auto 20px;"></div>
+        <h3 style="font-size: 18px; font-weight: 800; color: #0A1128; margin: 0 0 8px;">Processing Payment</h3>
+        <p id="modalStatusText" style="color: #64748B; font-size: 14px; margin: 0;">Authorizing transaction...</p>
+    </div>
+</div>
+
+<style>
+@keyframes spinLoader {
+    to { transform: rotate(360deg); }
+}
+@media (max-width: 800px) {
+    .checkout-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+</style>
+
+<!-- Core Scripts -->
+<script src="./assets/js/db.js"></script>
+<script src="./assets/js/auth.js"></script>
+<script src="./assets/js/main.js"></script>
+<script src="./assets/js/payment.js"></script>
+</body>
+</html>

@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ApoCare | World-Class Location-Based Doctor Discovery & Appointment Platform</title>
+    <meta name="description" content="Discover board-certified doctors, accredited clinics, and leading hospitals across Bankura, Durgapur, Kolkata, and South Bengal. Zero-wait digital consultation passes.">
+    <link rel="icon" type="image/svg+xml" href="./assets/images/logo-icon.svg">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Core Stylesheets -->
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body>
+
+<!-- Top Header Announcement Ticker & Emergency Banner -->
+<div class="header-ad-ticker" id="headerAdTicker">
+    <div class="ad-ticker-badge">
+        <span class="ad-pulse-dot"></span>
+        <span class="ad-badge-text">HEALTH ALERT</span>
+    </div>
+    
+    <div class="ad-ticker-viewport">
+        <div class="ad-ticker-track">
+            <div class="ad-ticker-item">
+                <span class="ad-tag tag-offer">⭐ LIMITED OFFER</span>
+                <span class="ad-text">Get <strong>Flat 25% OFF</strong> on Comprehensive Full-Body Health Checkups! Use Code: <span class="ad-coupon">APOCARE25</span></span>
+                <a href="./find-doctors.html" class="ad-btn">Claim Offer →</a>
+            </div>
+            <div class="ad-ticker-item">
+                <span class="ad-tag tag-emergency">🚨 24/7 EMERGENCY</span>
+                <span class="ad-text">Instant Ambulance & Trauma Support across Bankura & Durgapur. Call: <strong>1800-APO-CARE (1800-276-2273)</strong></span>
+                <a href="tel:18002762273" class="ad-btn ad-btn-emergency">Call Now</a>
+            </div>
+            <div class="ad-ticker-item">
+                <span class="ad-tag tag-verified">🩺 BOARD CERTIFIED</span>
+                <span class="ad-text">500+ Verified Specialists with Guaranteed Zero-Wait Digital Consultation Passes.</span>
+                <a href="./find-doctors.html" class="ad-btn">Find Specialist →</a>
+            </div>
+            <!-- Duplicated for seamless scroll loop -->
+            <div class="ad-ticker-item">
+                <span class="ad-tag tag-offer">⭐ LIMITED OFFER</span>
+                <span class="ad-text">Get <strong>Flat 25% OFF</strong> on Comprehensive Full-Body Health Checkups! Use Code: <span class="ad-coupon">APOCARE25</span></span>
+                <a href="./find-doctors.html" class="ad-btn">Claim Offer →</a>
+            </div>
+        </div>
+    </div>
+
+    <button type="button" class="ad-ticker-close" onclick="document.getElementById('headerAdTicker').style.display='none';" title="Dismiss Announcement" aria-label="Close Announcement">&times;</button>
+</div>
+
+<!-- Top Utility Bar -->
+<div class="top-utility-bar">
+    <div class="container">
+        <div class="utility-bar-inner">
+            <div class="utility-left">
+                <span class="utility-item">
+                    <span class="util-icon">🚨</span> 24/7 Emergency Helpline: <a href="tel:18002762273" style="font-weight: 700; color: #FFFFFF; text-decoration: underline;">1800-276-CARE</a>
+                </span>
+                <span class="utility-divider">|</span>
+                <span class="utility-item">
+                    <span class="util-icon">📍</span> Network: <strong>Bankura &bull; Durgapur &bull; Kolkata &bull; Purulia &bull; Asansol</strong>
+                </span>
+            </div>
+            <div class="utility-right">
+                <span class="utility-item"><span class="util-icon">🛡️</span> NABH & JCI Accredited Clinics</span>
+                <span class="utility-divider">|</span>
+                <a href="./doctor/register.html" class="utility-link" style="color: #67E8F9; font-weight: 600;">🩺 For Doctors & Clinics</a>
+                <span class="utility-divider">|</span>
+                <span class="utility-lang">
+                    🌐 <span style="font-weight: 700; color: #FFFFFF;">EN</span> | <span>বাং</span> | <span>हिं</span>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Header Navigation Bar -->
+<header class="header-navbar">
+    <div class="container">
+        <div class="nav-container">
+            <!-- Brand Logo -->
+            <a href="./index.html" class="brand-logo">
+                <img src="./assets/images/logo.svg" alt="ApoCare" height="48">
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <ul class="nav-links">
+                <li><a href="./index.html" class="nav-link active">Home</a></li>
+                <li><a href="./find-doctors.html" class="nav-link">Find Doctors</a></li>
+                <li><a href="#specialties" class="nav-link">Specialties</a></li>
+                <li><a href="#health-packages" class="nav-link">Health Packages</a></li>
+                <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+                <li><a href="./doctor/register.html" class="nav-link">For Doctors</a></li>
+                <li><a href="#faq" class="nav-link">FAQ</a></li>
+            </ul>
+
+            <!-- Right Action Items -->
+            <div class="nav-actions">
+                <div id="navAuthContainer" style="display: inline-flex; align-items: center; gap: 8px;">
+                    <a href="./auth/login.html" class="btn btn-outline btn-sm">Sign In</a>
+                    <a href="./auth/register.html" class="btn btn-primary btn-sm">Register Free</a>
+                </div>
+
+                <a href="./find-doctors.html" class="btn btn-navy btn-sm header-book-btn">⚡ Book Slot</a>
+                <button type="button" class="mobile-toggle" id="mobileNavToggle" aria-label="Toggle Menu">☰</button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Mobile Navigation Drawer -->
+<div class="mobile-drawer" id="mobileNavDrawer" style="display: none;">
+    <div style="position: fixed; inset: 0; background: rgba(10, 17, 40, 0.6); z-index: 2000;" id="mobileNavClose"></div>
+    <div style="position: fixed; top: 0; right: 0; bottom: 0; width: 300px; background: #FEFCFB; z-index: 2001; padding: 24px; display: flex; flex-direction: column; box-shadow: -4px 0 20px rgba(0,0,0,0.15);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+            <img src="./assets/images/logo.svg" alt="ApoCare" height="38">
+            <button type="button" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #0A1128;" onclick="document.getElementById('mobileNavDrawer').style.display='none';">&times;</button>
+        </div>
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 14px; font-size: 16px; font-weight: 600;">
+            <li><a href="./index.html" style="color: #034078;">Home</a></li>
+            <li><a href="./find-doctors.html" style="color: #0A1128;">Find Doctors</a></li>
+            <li><a href="#specialties" style="color: #0A1128;">Specialties</a></li>
+            <li><a href="#how-it-works" style="color: #0A1128;">How It Works</a></li>
+            <li><a href="./doctor/register.html" style="color: #0A1128;">For Doctors & Clinics</a></li>
+            <li><a href="javascript:void(0)" onclick="window.resetDemoData();" style="color: #EF4444;">⚡ Reset Demo Data</a></li>
+        </ul>
+        <div style="margin-top: auto; display: flex; flex-direction: column; gap: 10px;">
+            <a href="./auth/login.html" class="btn btn-outline" style="text-align: center;">Sign In</a>
+            <a href="./auth/register.html" class="btn btn-primary" style="text-align: center;">Register Free</a>
+        </div>
+    </div>
+</div>
+
+<!-- 1. Hero Section -->
+<section class="hero-section" style="padding: 60px 0 80px; position: relative; overflow: hidden; background: linear-gradient(180deg, #EDF4FA 0%, #FEFCFB 100%);">
+    <div class="container">
+        <div class="hero-grid" style="align-items: center;">
+            <div class="hero-content">
+                <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px;">
+                    <span class="section-tag" style="background: #E8F0F7; color: #034078; border: 1px solid #D2E2F0; padding: 6px 12px; border-radius: 9999px; font-size: 13px; font-weight: 700;">
+                        <span>🛡️</span> NABH & JCI Accredited Network
+                    </span>
+                    <span class="section-tag" style="background: #E7F4F7; color: #0D6B86; border: 1px solid #D0E9F0; padding: 6px 12px; border-radius: 9999px; font-size: 13px; font-weight: 700;">
+                        <span>⭐</span> 4.9/5 Rating (45K+ Consultations)
+                    </span>
+                </div>
+
+                <h1 style="font-size: 3rem; font-weight: 800; color: #0A1128; line-height: 1.15; margin-bottom: 18px;">
+                    World-Class Care. <br>
+                    <span style="background: linear-gradient(90deg, #034078 0%, #1282A2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Verified Specialists</span> Near You.
+                </h1>
+                
+                <p class="hero-lead" style="font-size: 1.125rem; color: #4D6275; max-width: 580px; margin-bottom: 28px; line-height: 1.6;">
+                    Discover board-certified doctors, leading multi-specialty hospitals, and accredited clinics across Bankura, Durgapur, Kolkata, and South Bengal with guaranteed zero-wait digital appointment passes.
+                </p>
+
+                <!-- Interactive Hero Multi-Filter Search Component -->
+                <div class="hero-search-box" style="background: #FFFFFF; border-radius: 16px; padding: 20px; box-shadow: 0 20px 40px -10px rgba(3, 64, 120, 0.15); border: 2px solid #D2E2F0;">
+                    <form action="./find-doctors.html" method="GET" class="search-form-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) auto; gap: 14px; align-items: flex-end;">
+                        <!-- Location Field -->
+                        <div class="search-field-group">
+                            <label for="searchLocation" style="display: block; font-size: 12px; font-weight: 700; color: #034078; margin-bottom: 6px; text-transform: uppercase;">Locality / City</label>
+                            <div class="field-inner" style="display: flex; align-items: center; border: 1px solid #CBD5E1; border-radius: 8px; padding: 10px 12px; background: #F8FAFC;">
+                                <span style="margin-right: 8px;">📍</span>
+                                <select name="location" id="searchLocation" style="border: none; background: transparent; width: 100%; font-size: 14px; font-weight: 600; color: #0A1128; outline: none;">
+                                    <option value="Bankura" selected>Bankura (Main City & Sadar)</option>
+                                    <option value="Durgapur">Durgapur</option>
+                                    <option value="Bishnupur">Bishnupur</option>
+                                    <option value="Asansol">Asansol</option>
+                                    <option value="Raniganj">Raniganj</option>
+                                    <option value="Purulia">Purulia</option>
+                                    <option value="Kolkata">Kolkata (Hub)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Specialization Field -->
+                        <div class="search-field-group">
+                            <label for="searchSpec" style="display: block; font-size: 12px; font-weight: 700; color: #034078; margin-bottom: 6px; text-transform: uppercase;">Specialization / Department</label>
+                            <div class="field-inner" style="display: flex; align-items: center; border: 1px solid #CBD5E1; border-radius: 8px; padding: 10px 12px; background: #F8FAFC;">
+                                <span style="margin-right: 8px;">🩺</span>
+                                <select name="specialization" id="searchSpec" style="border: none; background: transparent; width: 100%; font-size: 14px; font-weight: 600; color: #0A1128; outline: none;">
+                                    <option value="">All Specializations (500+ Doctors)</option>
+                                    <option value="Cardiologist">Cardiologist (Heart Care)</option>
+                                    <option value="Dermatologist">Dermatologist (Skin & Hair)</option>
+                                    <option value="Neurologist">Neurologist (Brain & Spine)</option>
+                                    <option value="Pediatrician">Pediatrician (Child Specialist)</option>
+                                    <option value="Orthopedic">Orthopedic (Bone & Joint)</option>
+                                    <option value="Gynecologist">Gynecologist (Women's Health)</option>
+                                    <option value="Dentist">Dentist (Dental & Oral)</option>
+                                    <option value="General Physician">General Physician (Family Doctor)</option>
+                                    <option value="ENT Specialist">ENT Specialist</option>
+                                    <option value="Ophthalmologist">Ophthalmologist (Eye Care)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="search-field-group btn-group">
+                            <button type="submit" class="btn btn-primary btn-search" style="padding: 12px 24px; font-size: 15px; font-weight: 700; border-radius: 8px; height: 46px; display: inline-flex; align-items: center; gap: 6px; cursor: pointer;">
+                                <span>🔍</span> Search Specialists
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Quick Discovery Chips -->
+                    <div class="hero-quick-chips" style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; align-items: center;">
+                        <span style="font-size: 12px; color: #64748B; font-weight: 700;">Popular:</span>
+                        <a href="./find-doctors.html?specialization=Cardiologist" class="quick-chip" style="font-size: 12px; background: #F1F5F9; padding: 4px 10px; border-radius: 9999px; text-decoration: none; color: #034078; font-weight: 600;">❤️ Cardiology</a>
+                        <a href="./find-doctors.html?specialization=Dermatologist" class="quick-chip" style="font-size: 12px; background: #F1F5F9; padding: 4px 10px; border-radius: 9999px; text-decoration: none; color: #034078; font-weight: 600;">✨ Dermatology</a>
+                        <a href="./find-doctors.html?specialization=Orthopedic" class="quick-chip" style="font-size: 12px; background: #F1F5F9; padding: 4px 10px; border-radius: 9999px; text-decoration: none; color: #034078; font-weight: 600;">🦴 Orthopedics</a>
+                        <a href="./find-doctors.html?specialization=Pediatrician" class="quick-chip" style="font-size: 12px; background: #F1F5F9; padding: 4px 10px; border-radius: 9999px; text-decoration: none; color: #034078; font-weight: 600;">👶 Pediatrics</a>
+                        <a href="./find-doctors.html?specialization=Gynecologist" class="quick-chip" style="font-size: 12px; background: #F1F5F9; padding: 4px 10px; border-radius: 9999px; text-decoration: none; color: #034078; font-weight: 600;">🌸 Gynecology</a>
+                    </div>
+                </div>
+
+                <!-- Live Accreditation Trust Stats -->
+                <div style="display: flex; gap: 24px; margin-top: 24px; font-size: 0.8125rem; color: #4D6275; flex-wrap: wrap;">
+                    <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="color: #1282A2; font-weight: 800;">✓</span> 100% Medical Council Verified
+                    </span>
+                    <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="color: #1282A2; font-weight: 800;">✓</span> Guaranteed Confirmed Slots
+                    </span>
+                    <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="color: #1282A2; font-weight: 800;">✓</span> Masked Aadhaar Privacy Shield
+                    </span>
+                </div>
+            </div>
+
+            <!-- Right Hero Visual Card -->
+            <div class="hero-visual" style="display: flex; justify-content: center; position: relative;">
+                <div style="background: #FFFFFF; border: 1px solid #E1E8EE; border-radius: 24px; padding: 24px; box-shadow: 0 25px 50px -12px rgba(10, 17, 40, 0.15); max-width: 440px; width: 100%;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; border-bottom: 1px solid #F1F5F9; padding-bottom: 14px;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div style="width: 44px; height: 44px; background: #034078; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 20px;">🏥</div>
+                            <div>
+                                <h4 style="margin: 0; font-size: 15px; color: #0A1128;">ApoCare Priority Pass</h4>
+                                <span style="font-size: 12px; color: #059669; font-weight: 700;">● Active Booking Available</span>
+                            </div>
+                        </div>
+                        <span style="background: #E8F0F7; color: #034078; font-size: 11px; font-weight: 800; padding: 4px 8px; border-radius: 6px;">BANKURA</span>
+                    </div>
+
+                    <div style="background: #F8FAFC; border-radius: 14px; padding: 16px; margin-bottom: 18px;">
+                        <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 12px;">
+                            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=150" alt="Doctor" style="width: 50px; height: 50px; border-radius: 10px; object-fit: cover;">
+                            <div>
+                                <h5 style="margin: 0; font-size: 15px; color: #0A1128;">Dr. Ananya Sen</h5>
+                                <div style="font-size: 12px; color: #034078; font-weight: 600;">Interventional Cardiologist</div>
+                                <div style="font-size: 11px; color: #64748B;">HeartCare Clinic &bull; ABC Road, Bankura</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-size: 12px; border-top: 1px dashed #CBD5E1; padding-top: 10px;">
+                            <span style="color: #64748B;">Next Available Slot:</span>
+                            <strong style="color: #034078;">Today, 10:30 AM</strong>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <a href="./doctor.html?id=1" class="btn btn-outline btn-sm" style="text-align: center; border-radius: 8px;">View Doctor</a>
+                        <a href="./book-appointment.html?doctor_id=1" class="btn btn-primary btn-sm" style="text-align: center; border-radius: 8px;">Book Instant</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 2. Platform Real-Time Impact Numbers Bar -->
+<section style="background: #0A1128; color: #FEFCFB; padding: 36px 0; border-top: 1px solid #1E293B;">
+    <div class="container">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 24px; text-align: center;">
+            <div>
+                <div style="font-size: 2.2rem; font-weight: 800; color: #67E8F9;" id="statDoctors">500+</div>
+                <div style="font-size: 13px; color: #94A3B8; text-transform: uppercase; font-weight: 600;">Verified Doctors</div>
+            </div>
+            <div>
+                <div style="font-size: 2.2rem; font-weight: 800; color: #67E8F9;" id="statClinics">100+</div>
+                <div style="font-size: 13px; color: #94A3B8; text-transform: uppercase; font-weight: 600;">Clinics & Hospitals</div>
+            </div>
+            <div>
+                <div style="font-size: 2.2rem; font-weight: 800; color: #67E8F9;" id="statSpecializations">20+</div>
+                <div style="font-size: 13px; color: #94A3B8; text-transform: uppercase; font-weight: 600;">Medical Specialties</div>
+            </div>
+            <div>
+                <div style="font-size: 2.2rem; font-weight: 800; color: #67E8F9;" id="statPatients">45,000+</div>
+                <div style="font-size: 13px; color: #94A3B8; text-transform: uppercase; font-weight: 600;">Consultations Done</div>
+            </div>
+            <div>
+                <div style="font-size: 2.2rem; font-weight: 800; color: #34D399;">98.4%</div>
+                <div style="font-size: 13px; color: #94A3B8; text-transform: uppercase; font-weight: 600;">Patient Satisfaction</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 3. Medical Specialties Directory -->
+<section id="specialties" style="padding: 70px 0; background: #FFFFFF;">
+    <div class="container">
+        <div style="text-align: center; max-width: 600px; margin: 0 auto 48px;">
+            <span class="section-tag" style="background: #E8F0F7; color: #034078; font-size: 12px; font-weight: 800; padding: 4px 12px; border-radius: 9999px;">DEPARTMENTS & SPECIALTIES</span>
+            <h2 style="font-size: 2.2rem; font-weight: 800; color: #0A1128; margin-top: 10px;">Consult Top Specialists Across 20+ Medical Domains</h2>
+            <p style="color: #4D6275; font-size: 15px;">Book confirmed clinic and hospital consultations with premier specialists.</p>
+        </div>
+
+        <div id="homeSpecialtiesGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px;">
+            <!-- Dynamically populated from db.js -->
+        </div>
+    </div>
+</section>
+
+<!-- 4. Featured Verified Doctors Section -->
+<section style="padding: 70px 0; background: #F8FAFC; border-top: 1px solid #E2E8F0; border-bottom: 1px solid #E2E8F0;">
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; flex-wrap: wrap; gap: 16px;">
+            <div>
+                <span class="section-tag" style="background: #E8F0F7; color: #034078; font-size: 12px; font-weight: 800; padding: 4px 12px; border-radius: 9999px;">TOP RATED CONSULTANTS</span>
+                <h2 style="font-size: 2.2rem; font-weight: 800; color: #0A1128; margin-top: 10px;">Featured Medical Specialists</h2>
+                <p style="color: #4D6275; font-size: 15px; margin: 0;">NABH accredited doctors available for instant digital passes across South Bengal.</p>
+            </div>
+            <a href="./find-doctors.html" class="btn btn-outline" style="font-weight: 700;">Explore All 500+ Doctors →</a>
+        </div>
+
+        <div id="homeFeaturedDoctorsGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px;">
+            <!-- Populated via JavaScript -->
+        </div>
+    </div>
+</section>
+
+<!-- 5. How It Works -->
+<section id="how-it-works" style="padding: 70px 0; background: #FFFFFF;">
+    <div class="container">
+        <div style="text-align: center; max-width: 600px; margin: 0 auto 48px;">
+            <span class="section-tag" style="background: #E8F0F7; color: #034078; font-size: 12px; font-weight: 800; padding: 4px 12px; border-radius: 9999px;">EFFORTLESS HEALTHCARE</span>
+            <h2 style="font-size: 2.2rem; font-weight: 800; color: #0A1128; margin-top: 10px;">3 Simple Steps to Zero-Wait Care</h2>
+            <p style="color: #4D6275; font-size: 15px;">Skip crowded waiting halls with verified digital queue passes.</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
+            <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 18px; padding: 32px 24px; text-align: center; position: relative;">
+                <div style="width: 56px; height: 56px; background: #034078; color: #fff; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin: 0 auto 20px;">1</div>
+                <h3 style="font-size: 18px; font-weight: 700; color: #0A1128; margin-bottom: 10px;">Select Specialty & Doctor</h3>
+                <p style="color: #4D6275; font-size: 14px; line-height: 1.5;">Search by disease, specialization, or neighborhood. Filter verified doctors by reviews and charges.</p>
+            </div>
+
+            <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 18px; padding: 32px 24px; text-align: center; position: relative;">
+                <div style="width: 56px; height: 56px; background: #1282A2; color: #fff; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin: 0 auto 20px;">2</div>
+                <h3 style="font-size: 18px; font-weight: 700; color: #0A1128; margin-bottom: 10px;">Pick Confirmed Time Slot</h3>
+                <p style="color: #4D6275; font-size: 14px; line-height: 1.5;">Choose a date and guaranteed time window that fits your schedule without overbooking.</p>
+            </div>
+
+            <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 18px; padding: 32px 24px; text-align: center; position: relative;">
+                <div style="width: 56px; height: 56px; background: #059669; color: #fff; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin: 0 auto 20px;">3</div>
+                <h3 style="font-size: 18px; font-weight: 700; color: #0A1128; margin-bottom: 10px;">Get Digital Pass & Walk In</h3>
+                <p style="color: #4D6275; font-size: 14px; line-height: 1.5;">Receive instant SMS/WhatsApp confirmation and show your digital QR pass at the clinic desk.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 6. Preventive Health Packages Section -->
+<section id="health-packages" style="padding: 70px 0; background: linear-gradient(180deg, #EDF4FA 0%, #FFFFFF 100%);">
+    <div class="container">
+        <div style="text-align: center; max-width: 600px; margin: 0 auto 48px;">
+            <span class="section-tag" style="background: #E8F0F7; color: #034078; font-size: 12px; font-weight: 800; padding: 4px 12px; border-radius: 9999px;">PREVENTIVE HEALTHCARE</span>
+            <h2 style="font-size: 2.2rem; font-weight: 800; color: #0A1128; margin-top: 10px;">Popular Full-Body Health Checkups</h2>
+            <p style="color: #4D6275; font-size: 15px;">Book comprehensive lab screenings with free home sample collection.</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
+            <!-- Basic Package -->
+            <div style="background: #FFFFFF; border: 1px solid #E1E8EE; border-radius: 18px; padding: 28px; display: flex; flex-direction: column;">
+                <span style="background: #E8F0F7; color: #034078; font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 6px; align-self: flex-start;">62 ESSENTIAL TESTS</span>
+                <h3 style="font-size: 20px; font-weight: 700; color: #0A1128; margin: 12px 0 6px;">Basic Wellness Package</h3>
+                <p style="color: #4D6275; font-size: 13px; margin-bottom: 16px;">Complete Hemogram, Lipid Profile, Blood Glucose, Liver Function, and Kidney Function.</p>
+                <div style="font-size: 28px; font-weight: 800; color: #034078; margin-bottom: 16px;">₹799 <span style="font-size: 14px; text-decoration: line-through; color: #94A3B8;">₹1,500</span></div>
+                <ul style="list-style: none; padding: 0; margin: 0 0 24px; font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 8px;">
+                    <li>✓ Free Home Sample Collection</li>
+                    <li>✓ Digital Report within 12 Hours</li>
+                    <li>✓ 1 Free Doctor Tele-Consultation</li>
+                </ul>
+                <a href="./find-doctors.html" class="btn btn-outline" style="text-align: center; margin-top: auto; font-weight: 700;">Book Checkup</a>
+            </div>
+
+            <!-- Comprehensive Package -->
+            <div style="background: #FFFFFF; border: 2px solid #034078; border-radius: 18px; padding: 28px; display: flex; flex-direction: column; position: relative; box-shadow: 0 10px 30px rgba(3, 64, 120, 0.12);">
+                <div style="position: absolute; top: -12px; right: 24px; background: #034078; color: #fff; font-size: 11px; font-weight: 800; padding: 4px 12px; border-radius: 9999px;">MOST POPULAR</div>
+                <span style="background: #E7F4F7; color: #1282A2; font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 6px; align-self: flex-start;">88 ADVANCED TESTS</span>
+                <h3 style="font-size: 20px; font-weight: 700; color: #0A1128; margin: 12px 0 6px;">Executive Full-Body Screen</h3>
+                <p style="color: #4D6275; font-size: 13px; margin-bottom: 16px;">Cardiac Risk Markers, Vitamin D3 & B12, Thyroid Panel, Complete Liver, Kidney & HbA1c.</p>
+                <div style="font-size: 28px; font-weight: 800; color: #034078; margin-bottom: 16px;">₹1,499 <span style="font-size: 14px; text-decoration: line-through; color: #94A3B8;">₹3,200</span></div>
+                <ul style="list-style: none; padding: 0; margin: 0 0 24px; font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 8px;">
+                    <li>✓ Free Home Sample Collection</li>
+                    <li>✓ Certified Pathologist Verified Reports</li>
+                    <li>✓ Complete Diet & Nutrition Counseling</li>
+                </ul>
+                <a href="./find-doctors.html" class="btn btn-primary" style="text-align: center; margin-top: auto; font-weight: 700;">Book Checkup</a>
+            </div>
+
+            <!-- Senior Citizen Package -->
+            <div style="background: #FFFFFF; border: 1px solid #E1E8EE; border-radius: 18px; padding: 28px; display: flex; flex-direction: column;">
+                <span style="background: #FEF3C7; color: #D97706; font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 6px; align-self: flex-start;">SENIOR CITIZEN CARE</span>
+                <h3 style="font-size: 20px; font-weight: 700; color: #0A1128; margin: 12px 0 6px;">Senior Health Shield (50+)</h3>
+                <p style="color: #4D6275; font-size: 13px; margin-bottom: 16px;">Bone Health, Arthritis Profile, Prostate/PSA, Diabetic HbA1c, Electrolytes & ECG.</p>
+                <div style="font-size: 28px; font-weight: 800; color: #034078; margin-bottom: 16px;">₹1,899 <span style="font-size: 14px; text-decoration: line-through; color: #94A3B8;">₹4,000</span></div>
+                <ul style="list-style: none; padding: 0; margin: 0 0 24px; font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 8px;">
+                    <li>✓ Free Home Sample Collection</li>
+                    <li>✓ Priority Clinic Pass with Senior Cardiologist</li>
+                    <li>✓ Comprehensive Health Risk Scorecard</li>
+                </ul>
+                <a href="./find-doctors.html" class="btn btn-outline" style="text-align: center; margin-top: auto; font-weight: 700;">Book Checkup</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 7. FAQ Accordion -->
+<section id="faq" style="padding: 70px 0; background: #FFFFFF;">
+    <div class="container" style="max-width: 800px;">
+        <div style="text-align: center; margin-bottom: 40px;">
+            <span class="section-tag" style="background: #E8F0F7; color: #034078; font-size: 12px; font-weight: 800; padding: 4px 12px; border-radius: 9999px;">COMMONLY ASKED QUESTIONS</span>
+            <h2 style="font-size: 2.2rem; font-weight: 800; color: #0A1128; margin-top: 10px;">Frequently Asked Questions</h2>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+            <details style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 12px; padding: 16px 20px; cursor: pointer;">
+                <summary style="font-weight: 700; color: #0A1128; font-size: 16px;">How does the zero-wait digital appointment pass work?</summary>
+                <p style="margin-top: 10px; color: #4D6275; font-size: 14px; line-height: 1.6;">When you confirm a slot on ApoCare, our system syncs directly with the doctor's live clinic schedule. You receive an instant digital QR pass. Present this at the clinic desk for priority admission without standing in registration queues.</p>
+            </details>
+
+            <details style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 12px; padding: 16px 20px; cursor: pointer;">
+                <summary style="font-weight: 700; color: #0A1128; font-size: 16px;">Are all listed doctors verified by medical councils?</summary>
+                <p style="margin-top: 10px; color: #4D6275; font-size: 14px; line-height: 1.6;">Yes. Every healthcare practitioner on ApoCare undergoes rigorous verification of their West Bengal Medical Council (WBMC) or National Medical Commission (NMC) registration credentials before being approved.</p>
+            </details>
+
+            <details style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 12px; padding: 16px 20px; cursor: pointer;">
+                <summary style="font-weight: 700; color: #0A1128; font-size: 16px;">What if I need to cancel or reschedule my consultation?</summary>
+                <p style="margin-top: 10px; color: #4D6275; font-size: 14px; line-height: 1.6;">You can cancel anytime directly from your Patient Dashboard with 1-click. Full refunds are instantly processed back to your original payment mode for cancellations made at least 2 hours before the appointment.</p>
+            </details>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer style="background: #0A1128; color: #94A3B8; padding: 60px 0 30px; border-top: 1px solid #1E293B;">
+    <div class="container">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; margin-bottom: 40px;">
+            <div>
+                <img src="./assets/images/logo.svg" alt="ApoCare" height="42" style="margin-bottom: 16px;">
+                <p style="font-size: 14px; line-height: 1.6; color: #94A3B8;">ApoCare is a modern healthcare discovery and patient appointment platform serving Bankura, Durgapur, Kolkata, and South Bengal.</p>
+            </div>
+            <div>
+                <h4 style="color: #FFFFFF; font-size: 16px; margin-bottom: 16px;">Quick Links</h4>
+                <ul style="list-style: none; padding: 0; margin: 0; font-size: 14px; display: flex; flex-direction: column; gap: 8px;">
+                    <li><a href="./find-doctors.html" style="color: #94A3B8; text-decoration: none;">Find Specialists</a></li>
+                    <li><a href="./doctor/register.html" style="color: #94A3B8; text-decoration: none;">Doctor Registration</a></li>
+                    <li><a href="./auth/login.html" style="color: #94A3B8; text-decoration: none;">Member Sign In</a></li>
+                    <li><a href="./admin/login.html" style="color: #94A3B8; text-decoration: none;">Admin Console</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 style="color: #FFFFFF; font-size: 16px; margin-bottom: 16px;">Demo Portals</h4>
+                <ul style="list-style: none; padding: 0; margin: 0; font-size: 14px; display: flex; flex-direction: column; gap: 8px;">
+                    <li><a href="./patient/dashboard.html" style="color: #67E8F9; text-decoration: none;">📊 Patient Portal Demo</a></li>
+                    <li><a href="./doctor/dashboard.html" style="color: #67E8F9; text-decoration: none;">🩺 Doctor Panel Demo</a></li>
+                    <li><a href="./admin/dashboard.html" style="color: #67E8F9; text-decoration: none;">🛡️ Admin Hub Demo</a></li>
+                    <li><a href="javascript:void(0)" onclick="window.resetDemoData();" style="color: #EF4444; text-decoration: none; font-weight: 700;">⚡ Reset Demo Data</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 style="color: #FFFFFF; font-size: 16px; margin-bottom: 16px;">Emergency Support</h4>
+                <div style="font-size: 20px; font-weight: 800; color: #67E8F9; margin-bottom: 8px;">1800-276-CARE</div>
+                <div style="font-size: 13px; color: #94A3B8;">24x7 Ambulance & Hospital Bed Availability Desk.</div>
+            </div>
+        </div>
+
+        <div style="border-top: 1px solid #1E293B; padding-top: 24px; text-align: center; font-size: 13px; color: #64748B;">
+            &copy; 2026 ApoCare Healthcare Network. All rights reserved. 100% Client-Side Static Edition for GitHub Pages.
+        </div>
+    </div>
+</footer>
+
+<!-- Core Application Scripts -->
+<script src="./assets/js/db.js"></script>
+<script src="./assets/js/auth.js"></script>
+<script src="./assets/js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Render Dynamic Specialization Cards
+    const specGrid = document.getElementById('homeSpecialtiesGrid');
+    if (specGrid && window.apoDB) {
+        const specs = window.apoDB.getSpecializations().slice(0, 8);
+        specGrid.innerHTML = specs.map(s => `
+            <a href="./find-doctors.html?specialization=${encodeURIComponent(s.name)}" style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 14px; padding: 20px; text-decoration: none; display: flex; align-items: center; gap: 14px; transition: all 0.2s ease;">
+                <div style="font-size: 32px; width: 50px; height: 50px; background: #FFFFFF; border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">${s.icon}</div>
+                <div>
+                    <h4 style="margin: 0; font-size: 16px; font-weight: 700; color: #0A1128;">${s.name}</h4>
+                    <div style="font-size: 12px; color: #64748B;">${s.doctor_count > 0 ? `${s.doctor_count}+ Specialists` : 'Top Specialists'}</div>
+                </div>
+            </a>
+        `).join('');
+    }
+
+    // 2. Render Featured Doctors
+    const featGrid = document.getElementById('homeFeaturedDoctorsGrid');
+    if (featGrid && window.apoDB) {
+        const doctors = window.apoDB.getDoctors({ status: 'Verified' }).slice(0, 6);
+        featGrid.innerHTML = doctors.map(doc => `
+            <div style="background: #FFFFFF; border: 1px solid #E1E8EE; border-radius: 16px; padding: 22px; display: flex; flex-direction: column; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+                <div style="display: flex; gap: 14px; align-items: center; margin-bottom: 14px;">
+                    <img src="${doc.image_url}" alt="${doc.name}" style="width: 60px; height: 60px; border-radius: 12px; object-fit: cover; border: 2px solid #E8F0F7;">
+                    <div>
+                        <h4 style="margin: 0; font-size: 16px; font-weight: 700; color: #0A1128;">
+                            <a href="./doctor.html?id=${doc.doctor_id}" style="color: inherit; text-decoration: none;">${doc.name}</a>
+                        </h4>
+                        <div style="font-size: 12px; font-weight: 700; color: #034078;">${doc.specialization}</div>
+                        <div style="font-size: 11px; color: #64748B;">${doc.qualification} &bull; ${doc.experience_years} yrs exp</div>
+                    </div>
+                </div>
+                <div style="font-size: 12px; color: #4D6275; margin-bottom: 14px; line-height: 1.4;">
+                    🏥 <strong>${doc.clinic_name}</strong><br>
+                    📍 ${doc.location} &bull; ⏱ ${doc.availability_days}
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 12px; border-top: 1px solid #F1F5F9;">
+                    <div style="font-size: 16px; font-weight: 800; color: #0A1128;">₹${doc.visiting_charge.toFixed(0)}</div>
+                    <a href="./book-appointment.html?doctor_id=${doc.doctor_id}" class="btn btn-primary btn-sm" style="font-weight: 700; border-radius: 6px;">⚡ Book Pass</a>
+                </div>
+            </div>
+        `).join('');
+    }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Profile & Consultation Schedule | ApoCare</title>
+    <link rel="icon" type="image/svg+xml" href="./assets/images/logo-icon.svg">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Core Stylesheets -->
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body style="background: #F8FAFC;">
+
+<!-- Header Navigation Bar -->
+<header class="header-navbar">
+    <div class="container">
+        <div class="nav-container">
+            <a href="./index.html" class="brand-logo">
+                <img src="./assets/images/logo.svg" alt="ApoCare" height="48">
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="./index.html" class="nav-link">Home</a></li>
+                <li><a href="./find-doctors.html" class="nav-link active">Find Doctors</a></li>
+                <li><a href="./index.html#specialties" class="nav-link">Specialties</a></li>
+                <li><a href="./doctor/register.html" class="nav-link">For Doctors</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <div id="navAuthContainer" style="display: inline-flex; align-items: center; gap: 8px;">
+                    <a href="./auth/login.html" class="btn btn-outline btn-sm">Sign In</a>
+                    <a href="./auth/register.html" class="btn btn-primary btn-sm">Register</a>
+                </div>
+                <button type="button" class="mobile-toggle" id="mobileNavToggle" aria-label="Toggle Menu">☰</button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Doctor Profile Container -->
+<div class="container" style="padding: 40px 16px 80px;" id="doctorProfileContainer">
+    <!-- Breadcrumbs -->
+    <div style="font-size: 13px; color: #64748B; margin-bottom: 20px;">
+        <a href="./index.html" style="color: inherit; text-decoration: none;">Home</a> &gt; 
+        <a href="./find-doctors.html" style="color: inherit; text-decoration: none;">Doctors</a> &gt; 
+        <span id="breadcrumbDoctorName" style="color: #034078; font-weight: 600;">Doctor Profile</span>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 340px; gap: 30px; align-items: flex-start;" class="profile-layout-grid">
+        <!-- Left Doctor Main Info & Details -->
+        <main>
+            <!-- Hero Doctor Header Card -->
+            <div style="background: #FFFFFF; border: 1px solid #E1E8EE; border-radius: 20px; padding: 32px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); margin-bottom: 24px;">
+                <div style="display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap;">
+                    <div style="position: relative;">
+                        <img id="docAvatar" src="" alt="Doctor" style="width: 110px; height: 110px; border-radius: 20px; object-fit: cover; border: 3px solid #E8F0F7;">
+                        <span style="position: absolute; bottom: -6px; right: -6px; background: #059669; color: #fff; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; border: 3px solid #fff;">✓</span>
+                    </div>
+
+                    <div style="flex: 1; min-width: 260px;">
+                        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                            <h1 id="docName" style="font-size: 26px; font-weight: 800; color: #0A1128; margin: 0;">Dr. Name</h1>
+                            <span style="background: #DCFCE7; color: #166534; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 9999px;">Medical Council Verified</span>
+                        </div>
+
+                        <div id="docSpec" style="font-size: 16px; font-weight: 700; color: #034078; margin: 6px 0 4px;">Specialization</div>
+                        <div id="docQual" style="font-size: 14px; color: #4D6275; margin-bottom: 12px;">Qualifications &bull; Experience</div>
+
+                        <div style="display: flex; gap: 16px; flex-wrap: wrap; font-size: 13px; color: #475569; background: #F8FAFC; padding: 10px 16px; border-radius: 10px;">
+                            <span>⭐ <strong id="docRating">4.9</strong> (<span id="docReviews">48</span> verified reviews)</span>
+                            <span>🏥 <strong id="docClinic">Clinic Name</strong></span>
+                            <span>📍 <span id="docLocation">Bankura</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About & Clinical Expertise -->
+            <div style="background: #FFFFFF; border: 1px solid #E1E8EE; border-radius: 20px; padding: 28px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); margin-bottom: 24px;">
+                <h3 style="font-size: 18px; font-weight: 800; color: #0A1128; margin: 0 0 14px;">About the Specialist</h3>
+                <p id="docAbout" style="color: #4D6275; font-size: 15px; line-height: 1.7; margin-bottom: 20px;"></p>
+
+                <h4 style="font-size: 15px; font-weight: 700; color: #0A1128; margin: 0 0 10px;">Specialized Services & Treatments</h4>
+                <div id="docServices" style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px;"></div>
+
+                <h4 style="font-size: 15px; font-weight: 700; color: #0A1128; margin: 0 0 8px;">Languages Spoken</h4>
+                <div id="docLanguages" style="font-size: 14px; color: #4D6275;"></div>
+            </div>
+
+            <!-- Weekly Consultation Hours Table -->
+            <div style="background: #FFFFFF; border: 1px solid #E1E8EE; border-radius: 20px; padding: 28px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); margin-bottom: 24px;">
+                <h3 style="font-size: 18px; font-weight: 800; color: #0A1128; margin: 0 0 16px;">Weekly Consultation Hours</h3>
+                <div id="docWeeklySchedule" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px;"></div>
+            </div>
+
+            <!-- Patient Reviews Section -->
+            <div style="background: #FFFFFF; border: 1px solid #E1E8EE; border-radius: 20px; padding: 28px; box-shadow: 0 4px 20px rgba(0,0,0,0.04);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h3 style="font-size: 18px; font-weight: 800; color: #0A1128; margin: 0;">Verified Patient Reviews</h3>
+                    <span style="font-size: 13px; color: #059669; font-weight: 700;">100% Genuine Visits</span>
+                </div>
+                <div id="docReviewsList" style="display: flex; flex-direction: column; gap: 16px;"></div>
+            </div>
+        </main>
+
+        <!-- Right Sticky Booking CTA Sidebar -->
+        <aside style="position: sticky; top: 90px;">
+            <div style="background: #FFFFFF; border: 2px solid #034078; border-radius: 20px; padding: 24px; box-shadow: 0 10px 30px rgba(3, 64, 120, 0.12);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                    <span style="font-size: 12px; text-transform: uppercase; font-weight: 700; color: #64748B;">Consultation Fee</span>
+                    <span id="docStickyCharge" style="font-size: 24px; font-weight: 800; color: #034078;">₹400</span>
+                </div>
+
+                <div style="background: #F8FAFC; border-radius: 12px; padding: 14px; margin-bottom: 20px; font-size: 13px; color: #334155;">
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                        <span>🛡️</span> <strong>Guaranteed Zero-Wait Pass</strong>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px; color: #64748B;">
+                        <span>⚡</span> Instant Digital Confirmation
+                    </div>
+                </div>
+
+                <a id="bookAppointmentBtn" href="./book-appointment.html" class="btn btn-primary btn-block" style="display: block; text-align: center; padding: 14px; font-size: 16px; font-weight: 700; border-radius: 12px; box-shadow: 0 4px 15px rgba(3, 64, 120, 0.3);">
+                    ⚡ Book Appointment Slot
+                </a>
+
+                <div style="margin-top: 16px; text-align: center; font-size: 12px; color: #64748B;">
+                    No cancellation fee up to 2 hours before slot
+                </div>
+            </div>
+
+            <!-- Clinic Direction Card -->
+            <div style="background: #FFFFFF; border: 1px solid #E1E8EE; border-radius: 16px; padding: 20px; margin-top: 20px;">
+                <h4 style="font-size: 14px; font-weight: 700; color: #0A1128; margin: 0 0 8px;">Clinic & Hospital Address</h4>
+                <p id="docAddress" style="font-size: 13px; color: #4D6275; margin-bottom: 12px; line-height: 1.4;"></p>
+                <div style="background: #E2E8F0; border-radius: 8px; height: 120px; display: flex; align-items: center; justify-content: center; color: #475569; font-size: 13px; font-weight: 600;">
+                    🗺️ Interactive Map Location (Bankura Hub)
+                </div>
+            </div>
+        </aside>
+    </div>
+</div>
+
+<style>
+@media (max-width: 900px) {
+    .profile-layout-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+</style>
+
+<!-- Footer -->
+<footer style="background: #0A1128; color: #94A3B8; padding: 40px 0 20px; border-top: 1px solid #1E293B; margin-top: 60px;">
+    <div class="container" style="text-align: center; font-size: 13px;">
+        &copy; 2026 ApoCare Healthcare Network. 100% Client-Side Static Edition for GitHub Pages.
+    </div>
+</footer>
+
+<!-- Core Scripts -->
+<script src="./assets/js/db.js"></script>
+<script src="./assets/js/auth.js"></script>
+<script src="./assets/js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const doctorId = urlParams.get('id') || 1;
+    const doc = window.apoDB.getDoctorById(doctorId);
+
+    if (!doc) {
+        alert('Doctor not found.');
+        window.location.href = './find-doctors.html';
+        return;
+    }
+
+    // Populate Info
+    document.title = `${doc.name} - ${doc.specialization} | ApoCare`;
+    document.getElementById('breadcrumbDoctorName').innerText = doc.name;
+    document.getElementById('docAvatar').src = doc.image_url;
+    document.getElementById('docName').innerText = doc.name;
+    document.getElementById('docSpec').innerText = doc.specialization;
+    document.getElementById('docQual').innerText = `${doc.qualification} • ${doc.experience_years} Years Experience (Reg: ${doc.registration_number})`;
+    document.getElementById('docRating').innerText = doc.rating.toFixed(2);
+    document.getElementById('docReviews').innerText = doc.review_count;
+    document.getElementById('docClinic').innerText = doc.clinic_name;
+    document.getElementById('docLocation').innerText = `${doc.location} (${doc.distance_km} km away)`;
+    document.getElementById('docAbout').innerText = doc.about;
+    document.getElementById('docStickyCharge').innerText = `₹${doc.visiting_charge.toFixed(0)}`;
+    document.getElementById('docAddress').innerText = `${doc.address}, ${doc.location}`;
+    document.getElementById('bookAppointmentBtn').href = `./book-appointment.html?doctor_id=${doc.doctor_id}`;
+
+    // Services
+    const servicesContainer = document.getElementById('docServices');
+    if (servicesContainer && doc.services) {
+        servicesContainer.innerHTML = doc.services.map(s => `
+            <span style="background: #E8F0F7; color: #034078; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 6px;">${s}</span>
+        `).join('');
+    }
+
+    // Languages
+    const langContainer = document.getElementById('docLanguages');
+    if (langContainer && doc.languages) {
+        langContainer.innerText = doc.languages.join(', ');
+    }
+
+    // Weekly Schedule
+    const schedContainer = document.getElementById('docWeeklySchedule');
+    if (schedContainer && doc.schedule) {
+        schedContainer.innerHTML = doc.schedule.map(sc => `
+            <div style="background: ${sc.is_available ? '#F0FDF4' : '#F8FAFC'}; border: 1px solid ${sc.is_available ? '#BBF7D0' : '#E2E8F0'}; border-radius: 10px; padding: 12px;">
+                <div style="font-weight: 700; color: #0A1128; font-size: 14px;">${sc.day}</div>
+                <div style="font-size: 12px; color: ${sc.is_available ? '#166534' : '#94A3B8'}; font-weight: 600; margin-top: 4px;">
+                    ${sc.is_available ? `⏱ ${sc.start_time} - ${sc.end_time}` : 'Unavailable'}
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // Reviews
+    const revContainer = document.getElementById('docReviewsList');
+    if (revContainer) {
+        const reviews = window.apoDB.getReviews(doc.doctor_id);
+        if (reviews.length === 0) {
+            revContainer.innerHTML = `<div style="color: #64748B; font-size: 14px;">No reviews yet for this specialist.</div>`;
+        } else {
+            revContainer.innerHTML = reviews.map(r => `
+                <div style="border-bottom: 1px solid #F1F5F9; padding-bottom: 14px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                        <strong style="color: #0A1128; font-size: 14px;">${r.patient_name}</strong>
+                        <span style="color: #F59E0B; font-weight: 800; font-size: 13px;">${'★'.repeat(r.rating)}</span>
+                    </div>
+                    <p style="color: #4D6275; font-size: 13px; line-height: 1.5; margin: 0;">"${r.comment}"</p>
+                    <span style="font-size: 11px; color: #94A3B8; margin-top: 4px; display: block;">Visited on ${r.date}</span>
+                </div>
+            `).join('');
+        }
+    }
+});
+</script>
+</body>
+</html>

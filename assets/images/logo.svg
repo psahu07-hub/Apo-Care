@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <!-- Brand Gradients -->
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1282A2" />
+      <stop offset="50%" stop-color="#034078" />
+      <stop offset="100%" stop-color="#001F54" />
+    </linearGradient>
+    <linearGradient id="lightBlueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1282A2" />
+      <stop offset="100%" stop-color="#034078" />
+    </linearGradient>
+    <linearGradient id="tealGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1282A2" />
+      <stop offset="60%" stop-color="#034078" />
+      <stop offset="100%" stop-color="#001F54" />
+    </linearGradient>
+    <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1282A2" />
+      <stop offset="100%" stop-color="#034078" />
+    </linearGradient>
+    <filter id="subtleShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0A1128" flood-opacity="0.12" />
+    </filter>
+  </defs>
+
+  <!-- Heart Background Outline (Dual Blue & Teal) -->
+  <g filter="url(#subtleShadow)">
+    <!-- Left Heart Arc (Teal-Sapphire) -->
+    <path d="M 250,130 C 230,85 170,75 140,110 C 110,145 110,195 150,235 L 250,330" 
+          fill="none" stroke="url(#lightBlueGrad)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" />
+    
+    <!-- Right Heart Arc (Teal-Navy) -->
+    <path d="M 250,130 C 270,85 330,75 360,110 C 390,145 390,195 350,235 L 250,330" 
+          fill="none" stroke="url(#tealGrad)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+
+  <!-- Stethoscope Element on Left -->
+  <g stroke="#001F54" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Earpieces -->
+    <path d="M 175,115 C 175,135 185,155 200,165" />
+    <path d="M 155,115 C 155,135 145,155 130,165" />
+    <!-- Stethoscope Arch Loop -->
+    <path d="M 130,165 C 120,205 180,240 205,215" />
+    <!-- Ear tips -->
+    <circle cx="175" cy="115" r="7" fill="#0A1128" stroke="none" />
+    <circle cx="155" cy="115" r="7" fill="#0A1128" stroke="none" />
+  </g>
+
+  <!-- Stethoscope Tubing & Chest Piece Extending Right -->
+  <g>
+    <path d="M 205,215 C 235,260 300,270 340,240 C 370,215 360,250 345,265" 
+          fill="none" stroke="#001F54" stroke-width="8" stroke-linecap="round" />
+    <!-- Chest Piece (Diaphragm) -->
+    <circle cx="355" cy="275" r="18" fill="#034078" stroke="#001F54" stroke-width="6" />
+    <circle cx="355" cy="275" r="8" fill="#FEFCFB" />
+  </g>
+
+  <!-- Pulse / ECG Wave on Right Heart Side -->
+  <path d="M 295,170 L 315,170 L 325,140 L 335,195 L 345,155 L 355,170 L 380,170" 
+        fill="none" stroke="#1282A2" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+
+  <!-- Center "A" Monogram Form with Sapphire Gradient and Cross -->
+  <g>
+    <!-- Left Leg of A -->
+    <path d="M 250,110 L 195,265 C 205,265 215,265 225,265 L 238,228 L 262,228 L 275,265 C 285,265 295,265 305,265 L 250,110 Z" 
+          fill="url(#blueGrad)" />
+    <!-- Inner Hollow of A -->
+    <polygon points="250,150 242,205 258,205" fill="#FEFCFB" />
+    
+    <!-- Medical Plus Cross in Center of A -->
+    <g fill="#1282A2">
+      <rect x="245" y="195" width="10" height="30" rx="3" />
+      <rect x="235" y="205" width="30" height="10" rx="3" />
+    </g>
+  </g>
+
+  <!-- Supportive Care Leaf / Caring Hand at Base -->
+  <path d="M 125,245 C 125,245 145,305 250,320 C 290,325 320,305 320,305 C 320,305 270,300 220,270 C 180,245 150,230 125,245 Z" 
+        fill="url(#leafGrad)" />
+  <path d="M 180,265 C 220,290 260,295 285,290" 
+        fill="none" stroke="#001F54" stroke-width="3" stroke-linecap="round" />
+
+  <!-- Brand Typography: ApoCare -->
+  <g id="brand-text">
+    <text x="250" y="405" font-family="'Outfit', 'Plus Jakarta Sans', 'Segoe UI', sans-serif" font-weight="900" font-size="64" text-anchor="middle">
+      <tspan fill="#0A1128">Apo</tspan><tspan fill="#034078">Care</tspan>
+    </text>
+    
+    <!-- Pulse Line Under Brand Name -->
+    <path d="M 80,430 L 235,430 L 245,418 L 250,442 L 255,420 L 265,430 L 420,430" 
+          fill="none" stroke="#1282A2" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+          
+    <!-- Tagline: Find Care. | Consult Experts. | Live Better. -->
+    <text x="250" y="465" font-family="'Plus Jakarta Sans', 'Inter', sans-serif" font-weight="700" font-size="14" fill="#0A1128" text-anchor="middle" letter-spacing="1.5">
+      <tspan fill="#1282A2">•</tspan> FIND CARE.  <tspan fill="#8C9EA8">|</tspan>  CONSULT EXPERTS.  <tspan fill="#8C9EA8">|</tspan>  LIVE BETTER. <tspan fill="#1282A2">•</tspan>
+    </text>
+  </g>
+</svg>

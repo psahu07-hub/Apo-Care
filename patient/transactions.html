@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Invoices & Receipts | ApoCare</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/images/logo-icon.svg">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Core Stylesheets -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+</head>
+<body>
+
+<div class="dashboard-layout">
+    <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+
+    <div class="dashboard-main">
+        <header class="dashboard-topbar">
+            <div class="topbar-left">
+                <div class="topbar-page-title">Digital Payment Invoices & Receipts</div>
+            </div>
+        </header>
+
+        <main class="dashboard-content">
+            <div style="background: #FFFFFF; border: 1px solid #E1E8EE; border-radius: 18px; padding: 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 13px; text-align: left;">
+                        <thead>
+                            <tr style="border-bottom: 2px solid #F1F5F9; color: #64748B; font-size: 12px; text-transform: uppercase;">
+                                <th style="padding: 12px 14px;">Invoice Ref</th>
+                                <th style="padding: 12px 14px;">Consulting Specialist</th>
+                                <th style="padding: 12px 14px;">Booking Ref</th>
+                                <th style="padding: 12px 14px;">Amount (INR)</th>
+                                <th style="padding: 12px 14px;">Gateway</th>
+                                <th style="padding: 12px 14px;">Status</th>
+                                <th style="padding: 12px 14px; text-align: right;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transactionsTableBody">
+                            <!-- Filled dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Core Scripts -->
+<script src="../assets/js/db.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/dashboard.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    if (!window.apoAuth.isLoggedIn()) window.apoAuth.loginDemo('patient');
+    window.apoDash.renderSidebar('patient', 'transactions');
+
+    const txns = window.apoDB.getTransactions();
+    const tbody = document.getElementById('transactionsTableBody');
+
+    if (txns.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; padding: 30px; color: #64748B;">No transactions logged yet.</td></tr>`;
+        return;
+    }
+
+    tbody.innerHTML = txns.map(t => `
+        <tr style="border-bottom: 1px solid #F1F5F9;">
+            <td style="padding: 14px; font-weight: 700; color: #0A1128;">${t.transaction_ref}</td>
+            <td style="padding: 14px;">${t.doctor_name}</td>
+            <td style="padding: 14px; color: #034078; font-weight: 600;">${t.booking_ref}</td>
+            <td style="padding: 14px; font-weight: 800; color: #0A1128;">₹${t.total_amount.toFixed(2)}</td>
+            <td style="padding: 14px; color: #4D6275;">${t.gateway}</td>
+            <td style="padding: 14px;">
+                <span style="background: ${t.payment_status === 'Successful' ? '#DCFCE7' : '#FEE2E2'}; color: ${t.payment_status === 'Successful' ? '#166534' : '#991B1B'}; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 9999px;">
+                    ${t.payment_status}
+                </span>
+            </td>
+            <td style="padding: 14px; text-align: right;">
+                <a href="../receipt.html?ref=${t.booking_ref}" class="btn btn-outline btn-sm" style="font-size: 12px; font-weight: 700;">🖨️ Pass</a>
+            </td>
+        </tr>
+    `).join('');
+});
+</script>
+</body>
+</html>

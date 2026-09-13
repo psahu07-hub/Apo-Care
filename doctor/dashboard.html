@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Consultation Hub | ApoCare</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/images/logo-icon.svg">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Core Stylesheets -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+</head>
+<body>
+
+<div class="dashboard-layout">
+    <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+
+    <div class="dashboard-main">
+        <header class="dashboard-topbar">
+            <div class="topbar-left">
+                <div class="topbar-page-title">Doctor Consultation Dashboard</div>
+            </div>
+            <div class="topbar-right">
+                <a href="./availability.html" class="btn btn-outline btn-sm">⏱ Consultation Hours</a>
+                <a href="./appointments.html" class="btn btn-primary btn-sm">Patient Queue</a>
+            </div>
+        </header>
+
+        <main class="dashboard-content">
+            <!-- Doctor Overview Banner -->
+            <div style="background: linear-gradient(135deg, #001F54 0%, #034078 100%); border-radius: 20px; padding: 28px 32px; color: #fff; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+                <div>
+                    <h2 style="margin: 0 0 6px; font-size: 22px; font-weight: 800;">Welcome, <span id="dashDocName">Dr. Ananya Sen</span> 👋</h2>
+                    <div style="font-size: 13px; color: #67E8F9; font-weight: 600;" id="dashDocSpec">Senior Consultant Interventional Cardiologist</div>
+                    <div style="font-size: 12px; color: #CBD5E1; margin-top: 4px;" id="dashDocClinic">HeartCare Superspecialty Clinic &bull; ABC Road, Bankura</div>
+                </div>
+                <span style="background: #059669; color: #fff; font-size: 12px; font-weight: 800; padding: 6px 14px; border-radius: 9999px;">
+                    ● CLINIC STATUS: ACTIVE & OPEN
+                </span>
+            </div>
+
+            <!-- Doctor KPI Metrics -->
+            <div class="metrics-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; margin-bottom: 28px;">
+                <div class="metric-card" style="background: #fff; border: 1px solid #E1E8EE; border-radius: 16px; padding: 20px; display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <div style="font-size: 12px; color: #64748B; font-weight: 700; text-transform: uppercase;">Active Passes</div>
+                        <div id="metricDocUpcoming" style="font-size: 24px; font-weight: 800; color: #0A1128; margin: 4px 0;">3</div>
+                        <div style="font-size: 11px; color: #059669; font-weight: 600;">Upcoming Consultations</div>
+                    </div>
+                    <div style="width: 44px; height: 44px; background: #E8F0F7; color: #034078; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px;">📅</div>
+                </div>
+
+                <div class="metric-card" style="background: #fff; border: 1px solid #E1E8EE; border-radius: 16px; padding: 20px; display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <div style="font-size: 12px; color: #64748B; font-weight: 700; text-transform: uppercase;">Pending Requests</div>
+                        <div id="metricDocPending" style="font-size: 24px; font-weight: 800; color: #D97706; margin: 4px 0;">1</div>
+                        <div style="font-size: 11px; color: #D97706; font-weight: 600;">Requires Confirmation</div>
+                    </div>
+                    <div style="width: 44px; height: 44px; background: #FFFBEB; color: #D97706; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px;">🔔</div>
+                </div>
+
+                <div class="metric-card" style="background: #fff; border: 1px solid #E1E8EE; border-radius: 16px; padding: 20px; display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <div style="font-size: 12px; color: #64748B; font-weight: 700; text-transform: uppercase;">Total Consultations</div>
+                        <div id="metricDocCompleted" style="font-size: 24px; font-weight: 800; color: #0A1128; margin: 4px 0;">48</div>
+                        <div style="font-size: 11px; color: #059669; font-weight: 600;">Rating: 4.90 / 5.0 ⭐</div>
+                    </div>
+                    <div style="width: 44px; height: 44px; background: #E7F4F7; color: #1282A2; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px;">🩺</div>
+                </div>
+
+                <div class="metric-card" style="background: #fff; border: 1px solid #E1E8EE; border-radius: 16px; padding: 20px; display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <div style="font-size: 12px; color: #64748B; font-weight: 700; text-transform: uppercase;">Gross Earnings</div>
+                        <div id="metricDocEarnings" style="font-size: 24px; font-weight: 800; color: #0A1128; margin: 4px 0;">₹19,200</div>
+                        <div style="font-size: 11px; color: #059669; font-weight: 600;">Direct Bank Settlement</div>
+                    </div>
+                    <div style="width: 44px; height: 44px; background: #DCFCE7; color: #166534; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px;">💰</div>
+                </div>
+            </div>
+
+            <!-- Today's Queue Section -->
+            <div style="background: #FFFFFF; border: 1px solid #E1E8EE; border-radius: 18px; padding: 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h3 style="font-size: 17px; font-weight: 800; color: #0A1128; margin: 0;">Patient Consultation Queue</h3>
+                    <a href="./appointments.html" style="font-size: 13px; font-weight: 700; color: #034078; text-decoration: none;">Manage Full Roster →</a>
+                </div>
+
+                <div id="doctorTodayQueue" style="display: flex; flex-direction: column; gap: 12px;">
+                    <!-- Filled dynamically -->
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Core Scripts -->
+<script src="../assets/js/db.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/dashboard.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    if (!window.apoAuth.isLoggedIn()) window.apoAuth.loginDemo('doctor');
+    const user = window.apoAuth.getCurrentUser();
+    window.apoDash.renderSidebar('doctor', 'dashboard');
+
+    const doctorId = user ? (user.doctor_id || 1) : 1;
+    const doc = window.apoDB.getDoctorById(doctorId);
+
+    if (doc) {
+        document.getElementById('dashDocName').innerText = doc.name;
+        document.getElementById('dashDocSpec').innerText = `${doc.specialization} • ${doc.qualification}`;
+        document.getElementById('dashDocClinic').innerText = `${doc.clinic_name} • ${doc.address}`;
+    }
+
+    const appts = window.apoDB.getAppointments({ doctor_id: doctorId });
+    const upcoming = appts.filter(a => a.status === 'Confirmed');
+    const pending = appts.filter(a => a.status === 'Pending');
+    const completed = appts.filter(a => a.status === 'Completed');
+
+    document.getElementById('metricDocUpcoming').innerText = upcoming.length;
+    document.getElementById('metricDocPending').innerText = pending.length;
+    document.getElementById('metricDocCompleted').innerText = completed.length + 45;
+    
+    const grossEarnings = (completed.length + 45) * (doc ? doc.visiting_charge : 400);
+    document.getElementById('metricDocEarnings').innerText = `₹${grossEarnings.toLocaleString()}`;
+
+    const queueEl = document.getElementById('doctorTodayQueue');
+    if (appts.length === 0) {
+        queueEl.innerHTML = `<div style="text-align: center; padding: 30px; color: #64748B;">No patients scheduled in current queue.</div>`;
+    } else {
+        queueEl.innerHTML = appts.slice(0, 5).map(a => `
+            <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 12px; padding: 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+                <div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <strong style="color: #0A1128; font-size: 15px;">${a.full_name}</strong>
+                        <span style="font-size: 12px; color: #64748B;">(${a.gender}, ${a.age} yrs)</span>
+                        <span style="background: ${a.status === 'Confirmed' ? '#DCFCE7' : '#FEF3C7'}; color: ${a.status === 'Confirmed' ? '#166534' : '#92400E'}; font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 9999px;">${a.status}</span>
+                    </div>
+                    <div style="font-size: 12px; color: #4D6275; margin-top: 4px;">
+                        📅 Date: <strong>${a.appointment_date}</strong> &bull; ⏱ Slot: <strong>${a.time_slot || a.appointment_time}</strong> &bull; Reason: <em>${a.reason}</em>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 8px;">
+                    ${a.status === 'Pending' ? `
+                        <button type="button" onclick="confirmAppointment('${a.booking_ref}')" class="btn btn-primary btn-sm" style="font-size: 12px; font-weight: 700;">Accept Request</button>
+                    ` : ''}
+                    ${a.status === 'Confirmed' ? `
+                        <button type="button" onclick="completeAppointment('${a.booking_ref}')" class="btn btn-primary btn-sm" style="background: #059669; border-color: #059669; font-size: 12px; font-weight: 700;">Mark Completed</button>
+                    ` : ''}
+                    <a href="./appointments.html" class="btn btn-outline btn-sm" style="font-size: 12px;">View Notes</a>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    window.confirmAppointment = function(ref) {
+        window.apoDB.updateAppointmentStatus(ref, 'Confirmed');
+        window.showToast('Appointment request accepted and confirmed!', 'success');
+        setTimeout(() => location.reload(), 600);
+    };
+
+    window.completeAppointment = function(ref) {
+        window.apoDB.updateAppointmentStatus(ref, 'Completed', 'Consultation finished successfully.');
+        window.showToast('Consultation marked as completed!', 'success');
+        setTimeout(() => location.reload(), 600);
+    };
+});
+</script>
+</body>
+</html>

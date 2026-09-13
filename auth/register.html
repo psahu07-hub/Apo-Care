@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Free Patient Account | ApoCare</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/images/logo-icon.svg">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Core Stylesheets -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body style="background: linear-gradient(180deg, #EDF4FA 0%, #FEFCFB 100%); min-height: 100vh; display: flex; flex-direction: column;">
+
+<!-- Header Navigation Bar -->
+<header class="header-navbar">
+    <div class="container">
+        <div class="nav-container">
+            <a href="../index.html" class="brand-logo">
+                <img src="../assets/images/logo.svg" alt="ApoCare" height="48">
+            </a>
+
+            <div class="nav-actions">
+                <a href="./login.html" class="btn btn-outline btn-sm">Sign In</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="container" style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px 16px;">
+    <div style="background: #FFFFFF; border: 1px solid #E1E8EE; border-radius: 24px; padding: 36px; max-width: 520px; width: 100%; box-shadow: 0 15px 35px -5px rgba(10, 17, 40, 0.08);">
+        <div style="text-align: center; margin-bottom: 24px;">
+            <h1 style="font-size: 24px; font-weight: 800; color: #0A1128; margin: 0 0 6px;">Register Patient Account</h1>
+            <p style="color: #64748B; font-size: 14px; margin: 0;">Book zero-wait appointments, manage medical records, and get digital receipts.</p>
+        </div>
+
+        <form id="registerForm">
+            <div style="margin-bottom: 14px;">
+                <label for="regName" style="display: block; font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 6px;">Full Name *</label>
+                <input type="text" id="regName" required placeholder="e.g. Tanima Kundu" style="width: 100%; padding: 11px 14px; border: 1.5px solid #CBD5E1; border-radius: 10px; font-size: 14px; outline: none; box-sizing: border-box;">
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+                <div>
+                    <label for="regEmail" style="display: block; font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 6px;">Email Address *</label>
+                    <input type="email" id="regEmail" required placeholder="name@example.com" style="width: 100%; padding: 11px 14px; border: 1.5px solid #CBD5E1; border-radius: 10px; font-size: 14px; outline: none; box-sizing: border-box;">
+                </div>
+                <div>
+                    <label for="regMobile" style="display: block; font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 6px;">Mobile Number *</label>
+                    <input type="tel" id="regMobile" required pattern="[0-9]{10}" placeholder="10-digit mobile" style="width: 100%; padding: 11px 14px; border: 1.5px solid #CBD5E1; border-radius: 10px; font-size: 14px; outline: none; box-sizing: border-box;">
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+                <div>
+                    <label for="regGender" style="display: block; font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 6px;">Gender</label>
+                    <select id="regGender" style="width: 100%; padding: 11px 14px; border: 1.5px solid #CBD5E1; border-radius: 10px; font-size: 14px; outline: none; background: #fff; box-sizing: border-box;">
+                        <option value="Female">Female</option>
+                        <option value="Male">Male</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="regLocation" style="display: block; font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 6px;">City / Region</label>
+                    <select id="regLocation" style="width: 100%; padding: 11px 14px; border: 1.5px solid #CBD5E1; border-radius: 10px; font-size: 14px; outline: none; background: #fff; box-sizing: border-box;">
+                        <option value="Bankura">Bankura</option>
+                        <option value="Durgapur">Durgapur</option>
+                        <option value="Bishnupur">Bishnupur</option>
+                        <option value="Asansol">Asansol</option>
+                        <option value="Kolkata">Kolkata</option>
+                    </select>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <label for="regPassword" style="display: block; font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 6px;">Create Password *</label>
+                <input type="password" id="regPassword" required minlength="6" placeholder="At least 6 characters" style="width: 100%; padding: 11px 14px; border: 1.5px solid #CBD5E1; border-radius: 10px; font-size: 14px; outline: none; box-sizing: border-box;">
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block" style="width: 100%; padding: 14px; font-size: 15px; font-weight: 800; border-radius: 10px; cursor: pointer; box-shadow: 0 4px 15px rgba(3, 64, 120, 0.3);">
+                Create Account & Sign In →
+            </button>
+        </form>
+
+        <div style="text-align: center; margin-top: 20px; font-size: 14px; color: #64748B;">
+            Already have an account? <a href="./login.html" style="color: #034078; font-weight: 700; text-decoration: none;">Sign In</a>
+        </div>
+    </div>
+</div>
+
+<!-- Core Scripts -->
+<script src="../assets/js/db.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/main.js"></script>
+<script>
+document.getElementById('registerForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('regName').value.trim();
+    const email = document.getElementById('regEmail').value.trim();
+    const mobile = document.getElementById('regMobile').value.trim();
+    const gender = document.getElementById('regGender').value;
+    const location = document.getElementById('regLocation').value;
+    const password = document.getElementById('regPassword').value.trim();
+
+    const res = window.apoAuth.register({ name, email, mobile, gender, location, password });
+    if (res.success) {
+        window.showToast(`Account created successfully! Welcome, ${name}!`, 'success');
+        setTimeout(() => {
+            window.location.href = '../patient/dashboard.html';
+        }, 800);
+    } else {
+        alert(res.message);
+    }
+});
+</script>
+</body>
+</html>

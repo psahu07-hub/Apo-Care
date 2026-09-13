@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Verifications & Management | ApoCare Admin</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/images/logo-icon.svg">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Core Stylesheets -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+</head>
+<body>
+
+<div class="dashboard-layout">
+    <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+
+    <div class="dashboard-main">
+        <header class="dashboard-topbar">
+            <div class="topbar-left">
+                <div class="topbar-page-title">Doctor Credentials & Verification Hub</div>
+            </div>
+            <div class="topbar-right">
+                <button type="button" onclick="document.getElementById('addDocModal').style.display='flex'" class="btn btn-primary btn-sm">+ Add New Doctor</button>
+            </div>
+        </header>
+
+        <main class="dashboard-content">
+            <!-- Filter Row -->
+            <div style="background: #FFFFFF; border: 1px solid #E1E8EE; border-radius: 16px; padding: 18px; margin-bottom: 24px; display: flex; gap: 14px; align-items: center; flex-wrap: wrap;">
+                <label style="font-size: 13px; font-weight: 700; color: #334155;">Filter Status:</label>
+                <select id="adminDocStatusFilter" style="padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 13px; outline: none; background: #fff;">
+                    <option value="">All Doctors</option>
+                    <option value="Verified">Verified Only</option>
+                    <option value="Pending">Pending Verification</option>
+                </select>
+
+                <input type="text" id="adminDocSearch" placeholder="Search doctor by name, registration or clinic..." style="padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 13px; outline: none; min-width: 260px;">
+            </div>
+
+            <!-- Doctor Management Table -->
+            <div style="background: #FFFFFF; border: 1px solid #E1E8EE; border-radius: 18px; padding: 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 13px; text-align: left;">
+                        <thead>
+                            <tr style="border-bottom: 2px solid #F1F5F9; color: #64748B; font-size: 12px; text-transform: uppercase;">
+                                <th style="padding: 12px 14px;">Doctor</th>
+                                <th style="padding: 12px 14px;">Registration No.</th>
+                                <th style="padding: 12px 14px;">Specialization</th>
+                                <th style="padding: 12px 14px;">Clinic / Location</th>
+                                <th style="padding: 12px 14px;">Visiting Fee</th>
+                                <th style="padding: 12px 14px;">Verification Status</th>
+                                <th style="padding: 12px 14px; text-align: right;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminDoctorsTableBody">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Add Doctor Modal -->
+<div id="addDocModal" style="display: none; position: fixed; inset: 0; background: rgba(10, 17, 40, 0.7); z-index: 9999; align-items: center; justify-content: center;">
+    <div style="background: #FFFFFF; border-radius: 18px; padding: 28px; max-width: 520px; width: 90%; max-height: 90vh; overflow-y: auto;">
+        <h3 style="font-size: 18px; font-weight: 800; color: #0A1128; margin: 0 0 16px;">Add Specialist Practitioner</h3>
+        
+        <form id="newDoctorForm">
+            <div style="margin-bottom: 12px;">
+                <label style="display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 4px;">Doctor Name *</label>
+                <input type="text" id="newDocName" required placeholder="Dr. Full Name" style="width: 100%; padding: 8px 10px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 13px; box-sizing: border-box;">
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+                <div>
+                    <label style="display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 4px;">Specialization *</label>
+                    <input type="text" id="newDocSpec" required placeholder="Cardiologist" style="width: 100%; padding: 8px 10px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 13px; box-sizing: border-box;">
+                </div>
+                <div>
+                    <label style="display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 4px;">Reg Number *</label>
+                    <input type="text" id="newDocReg" required placeholder="WBMC-XXXXX" style="width: 100%; padding: 8px 10px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 13px; box-sizing: border-box;">
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+                <div>
+                    <label style="display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 4px;">Clinic Name *</label>
+                    <input type="text" id="newDocClinic" required placeholder="Clinic / Hospital Name" style="width: 100%; padding: 8px 10px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 13px; box-sizing: border-box;">
+                </div>
+                <div>
+                    <label style="display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 4px;">Visiting Fee (₹) *</label>
+                    <input type="number" id="newDocFee" required value="400" style="width: 100%; padding: 8px 10px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 13px; box-sizing: border-box;">
+                </div>
+            </div>
+
+            <div style="margin-bottom: 18px;">
+                <label style="display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 4px;">Qualifications *</label>
+                <input type="text" id="newDocQual" required placeholder="MBBS, MD" style="width: 100%; padding: 8px 10px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 13px; box-sizing: border-box;">
+            </div>
+
+            <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                <button type="button" onclick="document.getElementById('addDocModal').style.display='none'" class="btn btn-outline btn-sm">Cancel</button>
+                <button type="submit" class="btn btn-primary btn-sm">Save & Verify Doctor</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Core Scripts -->
+<script src="../assets/js/db.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/dashboard.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    if (!window.apoAuth.isLoggedIn()) window.apoAuth.loginDemo('admin');
+    window.apoDash.renderSidebar('admin', 'doctors');
+
+    const statusFilter = document.getElementById('adminDocStatusFilter');
+    const searchInput = document.getElementById('adminDocSearch');
+
+    function renderTable() {
+        let docs = window.apoDB.data.doctors;
+        
+        const st = statusFilter.value;
+        if (st) docs = docs.filter(d => d.verification_status === st);
+
+        const q = searchInput.value.trim().toLowerCase();
+        if (q) {
+            docs = docs.filter(d => d.name.toLowerCase().includes(q) || d.registration_number.toLowerCase().includes(q) || d.clinic_name.toLowerCase().includes(q));
+        }
+
+        const tbody = document.getElementById('adminDoctorsTableBody');
+        tbody.innerHTML = docs.map(d => `
+            <tr style="border-bottom: 1px solid #F1F5F9;">
+                <td style="padding: 14px;">
+                    <strong style="color: #0A1128; font-size: 14px;">${d.name}</strong>
+                    <div style="font-size: 11px; color: #64748B;">${d.qualification} &bull; ${d.experience_years} yrs exp</div>
+                </td>
+                <td style="padding: 14px; font-weight: 700; color: #034078;">${d.registration_number}</td>
+                <td style="padding: 14px;"><span style="background: #E8F0F7; color: #034078; font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 6px;">${d.specialization}</span></td>
+                <td style="padding: 14px; color: #4D6275;">${d.clinic_name} (${d.location})</td>
+                <td style="padding: 14px; font-weight: 800; color: #0A1128;">₹${d.visiting_charge.toFixed(0)}</td>
+                <td style="padding: 14px;">
+                    <span style="background: ${d.verification_status === 'Verified' ? '#DCFCE7' : '#FEF3C7'}; color: ${d.verification_status === 'Verified' ? '#166534' : '#92400E'}; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 9999px;">
+                        ${d.verification_status}
+                    </span>
+                </td>
+                <td style="padding: 14px; text-align: right;">
+                    ${d.verification_status === 'Pending' ? `
+                        <button type="button" onclick="toggleDoctorStatus(${d.doctor_id}, 'Verified')" class="btn btn-primary btn-sm" style="font-size: 11px; font-weight: 700; background: #059669; border-color: #059669;">Approve</button>
+                    ` : `
+                        <button type="button" onclick="toggleDoctorStatus(${d.doctor_id}, 'Pending')" class="btn btn-outline btn-sm" style="font-size: 11px; color: #D97706; border-color: #FDE68A;">Revoke</button>
+                    `}
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    window.toggleDoctorStatus = function(id, newStatus) {
+        window.apoDB.updateDoctor(id, { verification_status: newStatus });
+        window.showToast(`Doctor status changed to ${newStatus}.`, 'info');
+        renderTable();
+    };
+
+    document.getElementById('newDoctorForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        window.apoDB.addDoctor({
+            name: document.getElementById('newDocName').value.trim(),
+            specialization: document.getElementById('newDocSpec').value.trim(),
+            registration_number: document.getElementById('newDocReg').value.trim(),
+            clinic_name: document.getElementById('newDocClinic').value.trim(),
+            visiting_charge: Number(document.getElementById('newDocFee').value),
+            qualification: document.getElementById('newDocQual').value.trim(),
+            type: 'Clinic',
+            location: 'Bankura',
+            address: 'Bankura City Center',
+            availability_days: 'Mon, Wed, Fri',
+            availability_time: '10:00 AM - 4:00 PM',
+            slot_duration_minutes: 20,
+            experience_years: 10,
+            distance_km: 1.5,
+            image_url: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=400',
+            verification_status: 'Verified'
+        });
+
+        document.getElementById('addDocModal').style.display = 'none';
+        window.showToast('Specialist added and verified successfully!', 'success');
+        renderTable();
+    });
+
+    statusFilter.addEventListener('change', renderTable);
+    searchInput.addEventListener('input', renderTable);
+
+    renderTable();
+});
+</script>
+</body>
+</html>

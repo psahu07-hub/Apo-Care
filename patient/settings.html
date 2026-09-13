@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Settings | ApoCare</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/images/logo-icon.svg">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Core Stylesheets -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+</head>
+<body>
+
+<div class="dashboard-layout">
+    <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+
+    <div class="dashboard-main">
+        <header class="dashboard-topbar">
+            <div class="topbar-left">
+                <div class="topbar-page-title">Patient Account & Security Settings</div>
+            </div>
+        </header>
+
+        <main class="dashboard-content" style="max-width: 720px;">
+            <!-- Password Security -->
+            <div style="background: #FFFFFF; border: 1px solid #E1E8EE; border-radius: 18px; padding: 28px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-bottom: 24px;">
+                <h3 style="font-size: 16px; font-weight: 800; color: #0A1128; margin: 0 0 16px;">Change Account Password</h3>
+                <form id="changePasswordForm">
+                    <div style="margin-bottom: 14px;">
+                        <label for="currentPass" style="display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 6px;">Current Password</label>
+                        <input type="password" id="currentPass" value="Patient@123" required style="width: 100%; padding: 10px 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
+                    </div>
+                    <div style="margin-bottom: 18px;">
+                        <label for="newPass" style="display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 6px;">New Password</label>
+                        <input type="password" id="newPass" required placeholder="At least 6 characters" style="width: 100%; padding: 10px 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm" style="padding: 10px 20px; font-weight: 700;">Update Password</button>
+                </form>
+            </div>
+
+            <!-- Notifications Preferences -->
+            <div style="background: #FFFFFF; border: 1px solid #E1E8EE; border-radius: 18px; padding: 28px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-bottom: 24px;">
+                <h3 style="font-size: 16px; font-weight: 800; color: #0A1128; margin: 0 0 16px;">Notification Preferences</h3>
+                <div style="display: flex; flex-direction: column; gap: 12px; font-size: 14px; color: #334155;">
+                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                        <input type="checkbox" checked style="accent-color: #034078; width: 16px; height: 16px;">
+                        <span>SMS Consultation Queue Reminders (1 hour prior to appointment)</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                        <input type="checkbox" checked style="accent-color: #034078; width: 16px; height: 16px;">
+                        <span>Email Invoices & Digital Pass PDFs</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                        <input type="checkbox" checked style="accent-color: #034078; width: 16px; height: 16px;">
+                        <span>Specialist Availability & Free Medical Camp Alerts</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Demo Reset Button -->
+            <div style="background: #FEF2F2; border: 1px solid #FCA5A5; border-radius: 18px; padding: 24px;">
+                <h4 style="font-size: 15px; font-weight: 800; color: #991B1B; margin: 0 0 6px;">Reset Demo Database</h4>
+                <p style="color: #7F1D1D; font-size: 13px; margin: 0 0 14px; line-height: 1.5;">Reset all client-side LocalStorage records back to initial mock seed data.</p>
+                <button type="button" onclick="window.resetDemoData();" class="btn btn-outline btn-sm" style="background: #fff; color: #DC2626; border-color: #DC2626; font-weight: 700;">⚡ Reset All Demo Data</button>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Core Scripts -->
+<script src="../assets/js/db.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/dashboard.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    if (!window.apoAuth.isLoggedIn()) window.apoAuth.loginDemo('patient');
+    window.apoDash.renderSidebar('patient', 'settings');
+
+    document.getElementById('changePasswordForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        window.showToast('Password updated successfully!', 'success');
+        document.getElementById('newPass').value = '';
+    });
+});
+</script>
+</body>
+</html>

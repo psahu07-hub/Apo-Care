@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Queue & Appointments | ApoCare Doctor Panel</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/images/logo-icon.svg">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Core Stylesheets -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+</head>
+<body>
+
+<div class="dashboard-layout">
+    <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+
+    <div class="dashboard-main">
+        <header class="dashboard-topbar">
+            <div class="topbar-left">
+                <div class="topbar-page-title">Patient Consultation Queue</div>
+            </div>
+            <div class="topbar-right">
+                <a href="./availability.html" class="btn btn-outline btn-sm">⏱ Modify Schedule</a>
+            </div>
+        </header>
+
+        <main class="dashboard-content">
+            <!-- Filter Bar -->
+            <div style="background: #FFFFFF; border: 1px solid #E1E8EE; border-radius: 16px; padding: 18px; margin-bottom: 24px; display: flex; gap: 14px; align-items: center; flex-wrap: wrap;">
+                <label style="font-size: 13px; font-weight: 700; color: #334155;">Filter Status:</label>
+                <select id="docStatusFilter" style="padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 13px; outline: none; background: #fff;">
+                    <option value="">All Statuses</option>
+                    <option value="Confirmed" selected>Confirmed (Active)</option>
+                    <option value="Pending">Pending Review</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Cancelled">Cancelled</option>
+                </select>
+
+                <input type="text" id="docSearchPatient" placeholder="Search patient name or ref..." style="padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 13px; outline: none; min-width: 220px;">
+            </div>
+
+            <!-- Appointments Table -->
+            <div style="background: #FFFFFF; border: 1px solid #E1E8EE; border-radius: 18px; padding: 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 13px; text-align: left;">
+                        <thead>
+                            <tr style="border-bottom: 2px solid #F1F5F9; color: #64748B; font-size: 12px; text-transform: uppercase;">
+                                <th style="padding: 12px 14px;">Booking Ref</th>
+                                <th style="padding: 12px 14px;">Patient Name</th>
+                                <th style="padding: 12px 14px;">Date & Time Slot</th>
+                                <th style="padding: 12px 14px;">Reason / Symptoms</th>
+                                <th style="padding: 12px 14px;">Fee</th>
+                                <th style="padding: 12px 14px;">Status</th>
+                                <th style="padding: 12px 14px; text-align: right;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="docAppointmentsTableBody">
+                            <!-- Filled dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Add Prescription / Consultation Notes Modal -->
+<div id="notesModal" style="display: none; position: fixed; inset: 0; background: rgba(10, 17, 40, 0.7); z-index: 9999; align-items: center; justify-content: center;">
+    <div style="background: #FFFFFF; border-radius: 18px; padding: 28px; max-width: 500px; width: 90%;">
+        <h3 style="font-size: 18px; font-weight: 800; color: #0A1128; margin: 0 0 8px;">Prescription & Clinical Notes</h3>
+        <p style="color: #64748B; font-size: 13px; margin: 0 0 16px;">Add clinical findings, recommended diagnosis, or prescription medicines for this patient.</p>
+        
+        <input type="hidden" id="notesApptRef">
+        <textarea id="doctorNotesInput" rows="5" placeholder="Enter clinical notes, Rx drugs, dosage, and next review date..." style="width: 100%; padding: 12px; border: 1px solid #CBD5E1; border-radius: 10px; font-size: 14px; outline: none; box-sizing: border-box; margin-bottom: 16px;"></textarea>
+
+        <div style="display: flex; gap: 10px; justify-content: flex-end;">
+            <button type="button" onclick="document.getElementById('notesModal').style.display='none'" class="btn btn-outline btn-sm">Close</button>
+            <button type="button" id="saveNotesBtn" class="btn btn-primary btn-sm">Save & Complete Visit</button>
+        </div>
+    </div>
+</div>
+
+<!-- Core Scripts -->
+<script src="../assets/js/db.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/dashboard.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    if (!window.apoAuth.isLoggedIn()) window.apoAuth.loginDemo('doctor');
+    const user = window.apoAuth.getCurrentUser();
+    window.apoDash.renderSidebar('doctor', 'appointments');
+
+    const doctorId = user ? (user.doctor_id || 1) : 1;
+    const statusSelect = document.getElementById('docStatusFilter');
+    const searchInput = document.getElementById('docSearchPatient');
+
+    function renderTable() {
+        const appts = window.apoDB.getAppointments({ doctor_id: doctorId });
+        let filtered = appts;
+
+        const st = statusSelect.value;
+        if (st) filtered = filtered.filter(a => a.status === st);
+
+        const q = searchInput.value.trim().toLowerCase();
+        if (q) {
+            filtered = filtered.filter(a => a.full_name.toLowerCase().includes(q) || a.booking_ref.toLowerCase().includes(q));
+        }
+
+        const tbody = document.getElementById('docAppointmentsTableBody');
+        if (filtered.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; padding: 30px; color: #64748B;">No consultations matching criteria.</td></tr>`;
+            return;
+        }
+
+        tbody.innerHTML = filtered.map(a => `
+            <tr style="border-bottom: 1px solid #F1F5F9;">
+                <td style="padding: 14px; font-weight: 700; color: #034078;">${a.booking_ref}</td>
+                <td style="padding: 14px;">
+                    <strong style="color: #0A1128;">${a.full_name}</strong>
+                    <div style="font-size: 11px; color: #64748B;">${a.gender}, ${a.age} yrs &bull; 📞 ${a.mobile}</div>
+                </td>
+                <td style="padding: 14px;">
+                    <strong>${a.appointment_date}</strong>
+                    <div style="font-size: 12px; color: #034078; font-weight: 600;">${a.time_slot || a.appointment_time}</div>
+                </td>
+                <td style="padding: 14px; max-width: 200px; color: #4D6275;">${a.reason}</td>
+                <td style="padding: 14px; font-weight: 800; color: #0A1128;">₹${a.amount.toFixed(0)}</td>
+                <td style="padding: 14px;">
+                    <span style="background: ${a.status === 'Confirmed' ? '#DCFCE7' : (a.status === 'Pending' ? '#FEF3C7' : '#E0F2FE')}; color: ${a.status === 'Confirmed' ? '#166534' : (a.status === 'Pending' ? '#92400E' : '#0369A1')}; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 9999px;">
+                        ${a.status}
+                    </span>
+                </td>
+                <td style="padding: 14px; text-align: right;">
+                    <button type="button" onclick="openNotesModal('${a.booking_ref}')" class="btn btn-outline btn-sm" style="font-size: 11px; font-weight: 700;">📝 Notes</button>
+                    ${a.status === 'Pending' ? `
+                        <button type="button" onclick="confirmAppt('${a.booking_ref}')" class="btn btn-primary btn-sm" style="font-size: 11px; font-weight: 700;">Accept</button>
+                    ` : ''}
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    window.openNotesModal = function(ref) {
+        const a = window.apoDB.getAppointmentById(ref);
+        document.getElementById('notesApptRef').value = ref;
+        document.getElementById('doctorNotesInput').value = a ? (a.doctor_notes || '') : '';
+        document.getElementById('notesModal').style.display = 'flex';
+    };
+
+    document.getElementById('saveNotesBtn').addEventListener('click', () => {
+        const ref = document.getElementById('notesApptRef').value;
+        const notes = document.getElementById('doctorNotesInput').value.trim();
+        window.apoDB.updateAppointmentStatus(ref, 'Completed', notes);
+        document.getElementById('notesModal').style.display = 'none';
+        window.showToast('Clinical notes saved and appointment completed!', 'success');
+        renderTable();
+    });
+
+    window.confirmAppt = function(ref) {
+        window.apoDB.updateAppointmentStatus(ref, 'Confirmed');
+        window.showToast('Appointment confirmed!', 'success');
+        renderTable();
+    };
+
+    statusSelect.addEventListener('change', renderTable);
+    searchInput.addEventListener('input', renderTable);
+
+    renderTable();
+});
+</script>
+</body>
+</html>

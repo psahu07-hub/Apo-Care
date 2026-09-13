@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Doctor Profile | ApoCare</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/images/logo-icon.svg">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Core Stylesheets -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+</head>
+<body>
+
+<div class="dashboard-layout">
+    <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+
+    <div class="dashboard-main">
+        <header class="dashboard-topbar">
+            <div class="topbar-left">
+                <div class="topbar-page-title">Edit Public Doctor Profile</div>
+            </div>
+            <div class="topbar-right">
+                <a href="../doctor.html?id=1" class="btn btn-outline btn-sm">👁️ View Public Profile</a>
+            </div>
+        </header>
+
+        <main class="dashboard-content" style="max-width: 800px;">
+            <div style="background: #FFFFFF; border: 1px solid #E1E8EE; border-radius: 20px; padding: 32px; box-shadow: 0 4px 20px rgba(0,0,0,0.04);">
+                <form id="docProfileForm">
+                    <h3 style="font-size: 16px; font-weight: 800; color: #0A1128; margin: 0 0 16px; border-bottom: 1px solid #F1F5F9; padding-bottom: 8px;">Professional Credentials</h3>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+                        <div>
+                            <label for="docNameInput" style="display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 6px;">Doctor Full Name</label>
+                            <input type="text" id="docNameInput" required style="width: 100%; padding: 10px 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
+                        </div>
+                        <div>
+                            <label for="docRegInput" style="display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 6px;">Medical Registration No.</label>
+                            <input type="text" id="docRegInput" readonly style="width: 100%; padding: 10px 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 14px; background: #F8FAFC; outline: none; box-sizing: border-box;">
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+                        <div>
+                            <label for="docSpecInput" style="display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 6px;">Specialization</label>
+                            <input type="text" id="docSpecInput" required style="width: 100%; padding: 10px 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
+                        </div>
+                        <div>
+                            <label for="docExpInput" style="display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 6px;">Experience (Years)</label>
+                            <input type="number" id="docExpInput" required style="width: 100%; padding: 10px 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
+                        </div>
+                        <div>
+                            <label for="docFeeInput" style="display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 6px;">Visiting Charge (₹)</label>
+                            <input type="number" id="docFeeInput" required step="50" style="width: 100%; padding: 10px 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 16px;">
+                        <label for="docQualInput" style="display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 6px;">Qualifications & Degrees</label>
+                        <input type="text" id="docQualInput" required style="width: 100%; padding: 10px 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
+                    </div>
+
+                    <h3 style="font-size: 16px; font-weight: 800; color: #0A1128; margin: 24px 0 16px; border-bottom: 1px solid #F1F5F9; padding-bottom: 8px;">Clinic & Bio Information</h3>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+                        <div>
+                            <label for="docClinicInput" style="display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 6px;">Primary Clinic / Hospital</label>
+                            <input type="text" id="docClinicInput" required style="width: 100%; padding: 10px 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
+                        </div>
+                        <div>
+                            <label for="docAddressInput" style="display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 6px;">Clinic Address</label>
+                            <input type="text" id="docAddressInput" required style="width: 100%; padding: 10px 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 24px;">
+                        <label for="docAboutInput" style="display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 6px;">About Practitioner & Clinical Philosophy</label>
+                        <textarea id="docAboutInput" rows="4" style="width: 100%; padding: 10px 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 14px; outline: none; resize: vertical; box-sizing: border-box;"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="padding: 12px 28px; font-size: 14px; font-weight: 700; border-radius: 10px;">
+                        Save Profile Updates
+                    </button>
+                </form>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Core Scripts -->
+<script src="../assets/js/db.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/dashboard.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    if (!window.apoAuth.isLoggedIn()) window.apoAuth.loginDemo('doctor');
+    const user = window.apoAuth.getCurrentUser();
+    window.apoDash.renderSidebar('doctor', 'profile');
+
+    const doctorId = user ? (user.doctor_id || 1) : 1;
+    const doc = window.apoDB.getDoctorById(doctorId);
+
+    if (doc) {
+        document.getElementById('docNameInput').value = doc.name || '';
+        document.getElementById('docRegInput').value = doc.registration_number || '';
+        document.getElementById('docSpecInput').value = doc.specialization || '';
+        document.getElementById('docExpInput').value = doc.experience_years || 10;
+        document.getElementById('docFeeInput').value = doc.visiting_charge || 400;
+        document.getElementById('docQualInput').value = doc.qualification || '';
+        document.getElementById('docClinicInput').value = doc.clinic_name || '';
+        document.getElementById('docAddressInput').value = doc.address || '';
+        document.getElementById('docAboutInput').value = doc.about || '';
+    }
+
+    document.getElementById('docProfileForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const updates = {
+            name: document.getElementById('docNameInput').value.trim(),
+            specialization: document.getElementById('docSpecInput').value.trim(),
+            experience_years: Number(document.getElementById('docExpInput').value),
+            visiting_charge: Number(document.getElementById('docFeeInput').value),
+            qualification: document.getElementById('docQualInput').value.trim(),
+            clinic_name: document.getElementById('docClinicInput').value.trim(),
+            address: document.getElementById('docAddressInput').value.trim(),
+            about: document.getElementById('docAboutInput').value.trim()
+        };
+
+        window.apoDB.updateDoctor(doctorId, updates);
+        window.showToast('Doctor public profile saved successfully!', 'success');
+    });
+});
+</script>
+</body>
+</html>

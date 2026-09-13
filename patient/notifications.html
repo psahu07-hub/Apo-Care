@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>In-App Notifications | ApoCare</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/images/logo-icon.svg">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Core Stylesheets -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+</head>
+<body>
+
+<div class="dashboard-layout">
+    <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+
+    <div class="dashboard-main">
+        <header class="dashboard-topbar">
+            <div class="topbar-left">
+                <div class="topbar-page-title">Notifications & Alerts</div>
+            </div>
+            <div class="topbar-right">
+                <button type="button" id="markAllReadBtn" class="btn btn-outline btn-sm">Mark All as Read</button>
+            </div>
+        </header>
+
+        <main class="dashboard-content" style="max-width: 800px;">
+            <div id="notificationsContainer" style="display: flex; flex-direction: column; gap: 12px;">
+                <!-- Filled dynamically -->
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Core Scripts -->
+<script src="../assets/js/db.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/dashboard.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    if (!window.apoAuth.isLoggedIn()) window.apoAuth.loginDemo('patient');
+    const user = window.apoAuth.getCurrentUser();
+    window.apoDash.renderSidebar('patient', 'notifications');
+
+    function renderNotifs() {
+        const notifs = window.apoDB.getNotifications(user ? user.user_id : 14, 'patient');
+        const container = document.getElementById('notificationsContainer');
+
+        if (notifs.length === 0) {
+            container.innerHTML = `
+                <div style="background: #FFFFFF; border: 1px solid #E1E8EE; border-radius: 16px; padding: 40px; text-align: center; color: #64748B;">
+                    <div style="font-size: 32px; margin-bottom: 8px;">🔔</div>
+                    <p style="margin: 0; font-size: 14px;">No new alerts.</p>
+                </div>
+            `;
+            return;
+        }
+
+        container.innerHTML = notifs.map(n => `
+            <div style="background: ${n.is_read ? '#FFFFFF' : '#F0FDF4'}; border: 1px solid ${n.is_read ? '#E1E8EE' : '#BBF7D0'}; border-radius: 14px; padding: 18px; display: flex; justify-content: space-between; align-items: flex-start; gap: 14px;">
+                <div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <h4 style="margin: 0; font-size: 15px; font-weight: 700; color: #0A1128;">${n.title}</h4>
+                        ${!n.is_read ? '<span style="width: 8px; height: 8px; background: #059669; border-radius: 50%;"></span>' : ''}
+                    </div>
+                    <p style="margin: 6px 0 0; font-size: 13px; color: #4D6275; line-height: 1.5;">${n.message}</p>
+                    <span style="font-size: 11px; color: #94A3B8; margin-top: 6px; display: block;">${new Date(n.created_at).toLocaleString()}</span>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    document.getElementById('markAllReadBtn').addEventListener('click', () => {
+        window.apoDB.markAllNotificationsRead(user ? user.user_id : 14);
+        window.showToast('All notifications marked as read.', 'success');
+        window.apoDash.renderSidebar('patient', 'notifications');
+        renderNotifs();
+    });
+
+    renderNotifs();
+});
+</script>
+</body>
+</html>

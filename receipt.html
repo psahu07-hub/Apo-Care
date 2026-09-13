@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Consultation Pass & Receipt | ApoCare</title>
+    <link rel="icon" type="image/svg+xml" href="./assets/images/logo-icon.svg">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Core Stylesheets -->
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <style>
+        @media print {
+            body { background: #fff !important; }
+            .header-navbar, .receipt-action-buttons, footer { display: none !important; }
+            .receipt-card { box-shadow: none !important; border: 1px solid #000 !important; }
+        }
+    </style>
+</head>
+<body style="background: #F8FAFC;">
+
+<!-- Header Navigation Bar -->
+<header class="header-navbar">
+    <div class="container">
+        <div class="nav-container">
+            <a href="./index.html" class="brand-logo">
+                <img src="./assets/images/logo.svg" alt="ApoCare" height="48">
+            </a>
+
+            <div class="nav-actions">
+                <a href="./patient/dashboard.html" class="btn btn-primary btn-sm">My Dashboard</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="container" style="padding: 40px 16px 80px; max-width: 680px;">
+    <!-- Success Banner -->
+    <div style="background: #ECFDF5; border: 1px solid #A7F3D0; border-radius: 16px; padding: 20px; text-align: center; margin-bottom: 24px;">
+        <div style="width: 48px; height: 48px; background: #059669; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; margin: 0 auto 10px;">✓</div>
+        <h2 style="font-size: 20px; font-weight: 800; color: #065F46; margin: 0 0 4px;">Appointment Confirmed!</h2>
+        <p style="color: #047857; font-size: 14px; margin: 0;">Your priority digital queue pass is ready. Show this at clinic desk for immediate admission.</p>
+    </div>
+
+    <!-- Printable Digital Pass Card -->
+    <div class="receipt-card" style="background: #FFFFFF; border: 1px solid #E1E8EE; border-radius: 20px; padding: 32px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); position: relative; overflow: hidden;">
+        <!-- Top Pass Header -->
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px dashed #E2E8F0; padding-bottom: 20px; margin-bottom: 20px;">
+            <div>
+                <img src="./assets/images/logo.svg" alt="ApoCare" height="34">
+                <div style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #034078; margin-top: 4px;">PRIORITY CLINIC CONSULTATION PASS</div>
+            </div>
+            <div style="text-align: right;">
+                <div style="font-size: 12px; color: #64748B;">Booking Reference:</div>
+                <div id="receiptRefNumber" style="font-size: 16px; font-weight: 800; color: #0A1128;">APO-2026-00101</div>
+            </div>
+        </div>
+
+        <!-- QR Code & Key Appointment Details -->
+        <div style="display: grid; grid-template-columns: 1fr 130px; gap: 20px; align-items: center; margin-bottom: 24px;">
+            <div>
+                <div style="font-size: 11px; text-transform: uppercase; color: #64748B; font-weight: 700;">Consulting Specialist</div>
+                <h3 id="receiptDoctorName" style="font-size: 18px; font-weight: 800; color: #0A1128; margin: 2px 0;">Dr. Ananya Sen</h3>
+                <div id="receiptDoctorSpec" style="color: #034078; font-size: 13px; font-weight: 600;">Interventional Cardiologist</div>
+                <div id="receiptClinicAddress" style="font-size: 12px; color: #475569; margin-top: 4px;">HeartCare Superspecialty Clinic &bull; ABC Road, Bankura</div>
+            </div>
+
+            <!-- Scannable Check-in QR code -->
+            <div style="text-align: center;">
+                <div style="width: 110px; height: 110px; background: #F8FAFC; border: 1px solid #CBD5E1; border-radius: 10px; padding: 6px; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+                    <svg width="95" height="95" viewBox="0 0 100 100" fill="#0A1128">
+                        <rect width="32" height="32" x="8" y="8" />
+                        <rect width="16" height="16" x="16" y="16" fill="#fff" />
+                        <rect width="32" height="32" x="60" y="8" />
+                        <rect width="16" height="16" x="68" y="16" fill="#fff" />
+                        <rect width="32" height="32" x="8" y="60" />
+                        <rect width="16" height="16" x="16" y="68" fill="#fff" />
+                        <rect width="12" height="12" x="44" y="44" />
+                        <rect width="18" height="6" x="60" y="60" />
+                        <rect width="8" height="18" x="78" y="70" />
+                        <rect width="10" height="10" x="45" y="70" />
+                    </svg>
+                </div>
+                <div style="font-size: 10px; color: #64748B; margin-top: 4px; font-weight: 600;">Clinic Desk Check-in</div>
+            </div>
+        </div>
+
+        <!-- Patient & Date Grid -->
+        <div style="background: #F8FAFC; border-radius: 12px; padding: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; font-size: 13px; margin-bottom: 24px;">
+            <div>
+                <span style="color: #64748B;">Patient Name:</span>
+                <div id="receiptPatientName" style="font-weight: 700; color: #0A1128;">Riya Chatterjee</div>
+            </div>
+            <div>
+                <span style="color: #64748B;">Date of Consultation:</span>
+                <div id="receiptDate" style="font-weight: 700; color: #0A1128;">Sept 15, 2026</div>
+            </div>
+            <div>
+                <span style="color: #64748B;">Time Slot Window:</span>
+                <div id="receiptTimeSlot" style="font-weight: 700; color: #034078;">10:30 AM - 10:50 AM</div>
+            </div>
+            <div>
+                <span style="color: #64748B;">Status:</span>
+                <div style="font-weight: 800; color: #059669;">● Confirmed & Verified</div>
+            </div>
+        </div>
+
+        <!-- Financial Summary -->
+        <div style="border-top: 1px solid #E2E8F0; padding-top: 16px; font-size: 13px; display: flex; flex-direction: column; gap: 6px;">
+            <div style="display: flex; justify-content: space-between; color: #475569;">
+                <span>Consultation Charge:</span>
+                <span id="receiptDoctorFee" style="font-weight: 600;">₹400.00</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; color: #475569;">
+                <span>ApoCare Digital Pass Service Fee:</span>
+                <span id="receiptPlatformFee" style="font-weight: 600;">₹25.00</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 16px; font-weight: 900; color: #0A1128; border-top: 1px solid #E2E8F0; padding-top: 8px; margin-top: 4px;">
+                <span>Total Paid (Digital Receipt):</span>
+                <span id="receiptTotalAmount" style="color: #034078;">₹425.00</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="receipt-action-buttons" style="display: flex; gap: 12px; justify-content: center; margin-top: 24px; flex-wrap: wrap;">
+        <button type="button" onclick="window.print()" class="btn btn-outline" style="padding: 12px 24px; font-weight: 700; border-radius: 10px; cursor: pointer;">
+            🖨️ Print / Save Pass
+        </button>
+        <a href="./patient/dashboard.html" class="btn btn-primary" style="padding: 12px 24px; font-weight: 700; border-radius: 10px;">
+            Go to Patient Dashboard →
+        </a>
+    </div>
+</div>
+
+<!-- Core Scripts -->
+<script src="./assets/js/db.js"></script>
+<script src="./assets/js/auth.js"></script>
+<script src="./assets/js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const ref = urlParams.get('ref') || 'APO-2026-00101';
+
+    const appt = window.apoDB.getAppointmentById(ref);
+    if (appt) {
+        const doctor = window.apoDB.getDoctorById(appt.doctor_id);
+        document.getElementById('receiptRefNumber').innerText = appt.booking_ref;
+        document.getElementById('receiptDoctorName').innerText = doctor ? doctor.name : 'Consulting Doctor';
+        document.getElementById('receiptDoctorSpec').innerText = doctor ? doctor.specialization : 'Specialist';
+        document.getElementById('receiptClinicAddress').innerText = doctor ? `${doctor.clinic_name} • ${doctor.address}` : 'Clinic Address';
+        document.getElementById('receiptPatientName').innerText = appt.full_name;
+        document.getElementById('receiptDate').innerText = appt.appointment_date;
+        document.getElementById('receiptTimeSlot').innerText = appt.time_slot || appt.appointment_time;
+        document.getElementById('receiptDoctorFee').innerText = `₹${appt.amount.toFixed(2)}`;
+        document.getElementById('receiptPlatformFee').innerText = `₹${(appt.platform_fee || 25).toFixed(2)}`;
+        document.getElementById('receiptTotalAmount').innerText = `₹${(appt.total_amount || (appt.amount + 25)).toFixed(2)}`;
+    }
+});
+</script>
+</body>
+</html>

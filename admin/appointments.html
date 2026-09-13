@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Appointments Ledger | ApoCare Admin</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/images/logo-icon.svg">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Core Stylesheets -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+</head>
+<body>
+
+<div class="dashboard-layout">
+    <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+
+    <div class="dashboard-main">
+        <header class="dashboard-topbar">
+            <div class="topbar-left">
+                <div class="topbar-page-title">Master Platform Appointments Monitor</div>
+            </div>
+        </header>
+
+        <main class="dashboard-content">
+            <div style="background: #FFFFFF; border: 1px solid #E1E8EE; border-radius: 18px; padding: 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 13px; text-align: left;">
+                        <thead>
+                            <tr style="border-bottom: 2px solid #F1F5F9; color: #64748B; font-size: 12px; text-transform: uppercase;">
+                                <th style="padding: 12px 14px;">Booking Ref</th>
+                                <th style="padding: 12px 14px;">Patient Details</th>
+                                <th style="padding: 12px 14px;">Doctor</th>
+                                <th style="padding: 12px 14px;">Date & Time Slot</th>
+                                <th style="padding: 12px 14px;">Total Amount</th>
+                                <th style="padding: 12px 14px;">Status</th>
+                                <th style="padding: 12px 14px; text-align: right;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminApptsTableBody">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Core Scripts -->
+<script src="../assets/js/db.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/dashboard.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    if (!window.apoAuth.isLoggedIn()) window.apoAuth.loginDemo('admin');
+    window.apoDash.renderSidebar('admin', 'appointments');
+
+    function renderTable() {
+        const appts = window.apoDB.getAppointments();
+        const tbody = document.getElementById('adminApptsTableBody');
+
+        tbody.innerHTML = appts.map(a => {
+            const doc = window.apoDB.getDoctorById(a.doctor_id);
+            return `
+                <tr style="border-bottom: 1px solid #F1F5F9;">
+                    <td style="padding: 14px; font-weight: 700; color: #034078;">${a.booking_ref}</td>
+                    <td style="padding: 14px;">
+                        <strong style="color: #0A1128;">${a.full_name}</strong>
+                        <div style="font-size: 11px; color: #64748B;">📞 ${a.mobile} &bull; ${a.location || 'Bankura'}</div>
+                    </td>
+                    <td style="padding: 14px;">
+                        <strong>${doc ? doc.name : 'Doctor'}</strong>
+                        <div style="font-size: 11px; color: #034078;">${doc ? doc.specialization : ''}</div>
+                    </td>
+                    <td style="padding: 14px;">
+                        <div>${a.appointment_date}</div>
+                        <div style="font-size: 11px; color: #64748B;">${a.time_slot || a.appointment_time}</div>
+                    </td>
+                    <td style="padding: 14px; font-weight: 800; color: #0A1128;">₹${(a.total_amount || 425).toFixed(2)}</td>
+                    <td style="padding: 14px;">
+                        <span style="background: ${a.status === 'Confirmed' ? '#DCFCE7' : (a.status === 'Pending' ? '#FEF3C7' : (a.status === 'Completed' ? '#E0F2FE' : '#FEE2E2'))}; color: ${a.status === 'Confirmed' ? '#166534' : (a.status === 'Pending' ? '#92400E' : (a.status === 'Completed' ? '#0369A1' : '#991B1B'))}; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 9999px;">
+                            ${a.status}
+                        </span>
+                    </td>
+                    <td style="padding: 14px; text-align: right;">
+                        <a href="../receipt.html?ref=${a.booking_ref}" class="btn btn-outline btn-sm" style="font-size: 11px;">View Pass</a>
+                    </td>
+                </tr>
+            `;
+        }).join('');
+    }
+
+    renderTable();
+});
+</script>
+</body>
+</html>

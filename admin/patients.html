@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registered Patients Directory | ApoCare Admin</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/images/logo-icon.svg">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Core Stylesheets -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+</head>
+<body>
+
+<div class="dashboard-layout">
+    <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+
+    <div class="dashboard-main">
+        <header class="dashboard-topbar">
+            <div class="topbar-left">
+                <div class="topbar-page-title">Master Patient Registry</div>
+            </div>
+        </header>
+
+        <main class="dashboard-content">
+            <div style="background: #FFFFFF; border: 1px solid #E1E8EE; border-radius: 18px; padding: 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 13px; text-align: left;">
+                        <thead>
+                            <tr style="border-bottom: 2px solid #F1F5F9; color: #64748B; font-size: 12px; text-transform: uppercase;">
+                                <th style="padding: 12px 14px;">Patient ID</th>
+                                <th style="padding: 12px 14px;">Full Name</th>
+                                <th style="padding: 12px 14px;">Email & Phone</th>
+                                <th style="padding: 12px 14px;">Gender / DOB</th>
+                                <th style="padding: 12px 14px;">Blood Group</th>
+                                <th style="padding: 12px 14px;">Location</th>
+                                <th style="padding: 12px 14px;">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminPatientsTableBody">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Core Scripts -->
+<script src="../assets/js/db.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/dashboard.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    if (!window.apoAuth.isLoggedIn()) window.apoAuth.loginDemo('admin');
+    window.apoDash.renderSidebar('admin', 'patients');
+
+    const patients = window.apoDB.data.patients;
+    const tbody = document.getElementById('adminPatientsTableBody');
+
+    tbody.innerHTML = patients.map(p => `
+        <tr style="border-bottom: 1px solid #F1F5F9;">
+            <td style="padding: 14px; font-weight: 700; color: #034078;">#PT-00${p.patient_id}</td>
+            <td style="padding: 14px; font-weight: 700; color: #0A1128;">${p.name}</td>
+            <td style="padding: 14px;">
+                <div>${p.email}</div>
+                <div style="font-size: 11px; color: #64748B;">📞 ${p.mobile}</div>
+            </td>
+            <td style="padding: 14px; color: #4D6275;">${p.gender || 'Female'} &bull; ${p.date_of_birth || '1995-01-01'}</td>
+            <td style="padding: 14px;"><span style="background: #E8F0F7; color: #034078; font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 6px;">${p.blood_group || 'O+'}</span></td>
+            <td style="padding: 14px; color: #4D6275;">${p.location}</td>
+            <td style="padding: 14px;">
+                <span style="background: #DCFCE7; color: #166534; font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 9999px;">Active</span>
+            </td>
+        </tr>
+    `).join('');
+});
+</script>
+</body>
+</html>

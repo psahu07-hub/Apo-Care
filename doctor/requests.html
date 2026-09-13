@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Requests | ApoCare Doctor Panel</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/images/logo-icon.svg">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Core Stylesheets -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+</head>
+<body>
+
+<div class="dashboard-layout">
+    <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+
+    <div class="dashboard-main">
+        <header class="dashboard-topbar">
+            <div class="topbar-left">
+                <div class="topbar-page-title">Pending Booking Requests</div>
+            </div>
+        </header>
+
+        <main class="dashboard-content" style="max-width: 860px;">
+            <div id="doctorRequestsList" style="display: flex; flex-direction: column; gap: 14px;">
+                <!-- Filled dynamically -->
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Core Scripts -->
+<script src="../assets/js/db.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/dashboard.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    if (!window.apoAuth.isLoggedIn()) window.apoAuth.loginDemo('doctor');
+    const user = window.apoAuth.getCurrentUser();
+    window.apoDash.renderSidebar('doctor', 'requests');
+
+    const doctorId = user ? (user.doctor_id || 1) : 1;
+
+    function renderRequests() {
+        const appts = window.apoDB.getAppointments({ doctor_id: doctorId });
+        const pending = appts.filter(a => a.status === 'Pending');
+        const container = document.getElementById('doctorRequestsList');
+
+        if (pending.length === 0) {
+            container.innerHTML = `
+                <div style="background: #FFFFFF; border: 1px solid #E1E8EE; border-radius: 18px; padding: 40px; text-align: center; color: #64748B;">
+                    <div style="font-size: 32px; margin-bottom: 8px;">✓</div>
+                    <h3 style="font-size: 16px; font-weight: 800; color: #0A1128; margin: 0 0 4px;">All Caught Up!</h3>
+                    <p style="margin: 0; font-size: 14px;">No pending patient requests awaiting your review.</p>
+                </div>
+            `;
+            return;
+        }
+
+        container.innerHTML = pending.map(a => `
+            <div style="background: #FFFFFF; border: 1.5px solid #FEF3C7; border-radius: 16px; padding: 22px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+                <div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <h4 style="margin: 0; font-size: 16px; font-weight: 700; color: #0A1128;">${a.full_name}</h4>
+                        <span style="font-size: 12px; color: #64748B;">(${a.gender}, ${a.age} yrs)</span>
+                        <span style="background: #FEF3C7; color: #92400E; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 9999px;">Awaiting Review</span>
+                    </div>
+                    <div style="font-size: 13px; color: #4D6275; margin-top: 4px;">
+                        📅 Requested Date: <strong>${a.appointment_date}</strong> &bull; ⏱ Slot: <strong>${a.time_slot || a.appointment_time}</strong>
+                    </div>
+                    <div style="font-size: 13px; color: #334155; margin-top: 6px; background: #F8FAFC; padding: 8px 12px; border-radius: 8px;">
+                        Reason: <em>"${a.reason}"</em>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 10px;">
+                    <button type="button" onclick="rejectReq('${a.booking_ref}')" class="btn btn-outline btn-sm" style="color: #EF4444; border-color: #FCA5A5; font-weight: 700;">Decline</button>
+                    <button type="button" onclick="acceptReq('${a.booking_ref}')" class="btn btn-primary btn-sm" style="font-weight: 700;">Accept & Confirm</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    window.acceptReq = function(ref) {
+        window.apoDB.updateAppointmentStatus(ref, 'Confirmed');
+        window.showToast('Appointment confirmed and digital pass issued to patient.', 'success');
+        renderRequests();
+    };
+
+    window.rejectReq = function(ref) {
+        window.apoDB.updateAppointmentStatus(ref, 'Cancelled', 'Declined by specialist due to schedule conflict.');
+        window.showToast('Request declined and patient notified for refund.', 'info');
+        renderRequests();
+    };
+
+    renderRequests();
+});
+</script>
+</body>
+</html>

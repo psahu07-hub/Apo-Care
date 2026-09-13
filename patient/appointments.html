@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Appointments | ApoCare Patient Portal</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/images/logo-icon.svg">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Core Stylesheets -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+</head>
+<body>
+
+<div class="dashboard-layout">
+    <aside class="dashboard-sidebar" id="dashboardSidebar"></aside>
+
+    <div class="dashboard-main">
+        <header class="dashboard-topbar">
+            <div class="topbar-left">
+                <div class="topbar-page-title">My Consultation Passes</div>
+            </div>
+            <div class="topbar-right">
+                <a href="../find-doctors.html" class="btn btn-primary btn-sm">+ Book New Slot</a>
+            </div>
+        </header>
+
+        <main class="dashboard-content">
+            <!-- Filter Tabs -->
+            <div style="display: flex; gap: 10px; margin-bottom: 24px; border-bottom: 1px solid #E2E8F0; padding-bottom: 14px;">
+                <button type="button" class="tab-btn active" data-tab="all" style="padding: 8px 16px; border-radius: 8px; border: 1.5px solid #034078; background: #034078; color: #fff; font-weight: 700; font-size: 13px; cursor: pointer;">All Passes</button>
+                <button type="button" class="tab-btn" data-tab="upcoming" style="padding: 8px 16px; border-radius: 8px; border: 1.5px solid #CBD5E1; background: #fff; color: #334155; font-weight: 700; font-size: 13px; cursor: pointer;">Upcoming</button>
+                <button type="button" class="tab-btn" data-tab="completed" style="padding: 8px 16px; border-radius: 8px; border: 1.5px solid #CBD5E1; background: #fff; color: #334155; font-weight: 700; font-size: 13px; cursor: pointer;">Completed</button>
+                <button type="button" class="tab-btn" data-tab="cancelled" style="padding: 8px 16px; border-radius: 8px; border: 1.5px solid #CBD5E1; background: #fff; color: #334155; font-weight: 700; font-size: 13px; cursor: pointer;">Cancelled</button>
+            </div>
+
+            <!-- List Container -->
+            <div id="appointmentsList" style="display: flex; flex-direction: column; gap: 16px;">
+                <!-- Filled by JavaScript -->
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Cancel Appointment Modal -->
+<div id="cancelModal" style="display: none; position: fixed; inset: 0; background: rgba(10, 17, 40, 0.7); z-index: 9999; align-items: center; justify-content: center;">
+    <div style="background: #FFFFFF; border-radius: 18px; padding: 28px; max-width: 440px; width: 90%;">
+        <h3 style="font-size: 18px; font-weight: 800; color: #0A1128; margin: 0 0 8px;">Cancel Appointment Pass?</h3>
+        <p style="color: #64748B; font-size: 14px; margin: 0 0 16px; line-height: 1.5;">Are you sure you want to cancel this booking? A 100% full refund will be credited back to your original payment mode within 24 hours.</p>
+        
+        <input type="hidden" id="cancelApptId">
+        <div style="display: flex; gap: 10px; justify-content: flex-end;">
+            <button type="button" onclick="document.getElementById('cancelModal').style.display='none'" class="btn btn-outline btn-sm">Keep Slot</button>
+            <button type="button" id="confirmCancelBtn" class="btn btn-primary btn-sm" style="background: #EF4444; border-color: #EF4444;">Confirm Cancellation</button>
+        </div>
+    </div>
+</div>
+
+<!-- Core Scripts -->
+<script src="../assets/js/db.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/dashboard.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    if (!window.apoAuth.isLoggedIn()) window.apoAuth.loginDemo('patient');
+    const user = window.apoAuth.getCurrentUser();
+    window.apoDash.renderSidebar('patient', 'appointments');
+
+    let currentTab = 'all';
+
+    function renderList() {
+        const appts = window.apoDB.getAppointments({ patient_id: user ? (user.patient_id || 1) : 1 });
+        let filtered = appts;
+        if (currentTab === 'upcoming') filtered = appts.filter(a => a.status === 'Confirmed' || a.status === 'Pending');
+        else if (currentTab === 'completed') filtered = appts.filter(a => a.status === 'Completed');
+        else if (currentTab === 'cancelled') filtered = appts.filter(a => a.status === 'Cancelled');
+
+        const listEl = document.getElementById('appointmentsList');
+        if (filtered.length === 0) {
+            listEl.innerHTML = `
+                <div style="background: #fff; border: 1px solid #E1E8EE; border-radius: 16px; padding: 40px; text-align: center; color: #64748B;">
+                    <div style="font-size: 32px; margin-bottom: 8px;">📋</div>
+                    <p style="margin: 0; font-size: 14px;">No consultation passes found in this category.</p>
+                </div>
+            `;
+            return;
+        }
+
+        listEl.innerHTML = filtered.map(a => {
+            const doc = window.apoDB.getDoctorById(a.doctor_id);
+            const statusColors = {
+                Confirmed: { bg: '#DCFCE7', text: '#166534' },
+                Pending: { bg: '#FEF3C7', text: '#92400E' },
+                Completed: { bg: '#E0F2FE', text: '#0369A1' },
+                Cancelled: { bg: '#FEE2E2', text: '#991B1B' }
+            };
+            const sColor = statusColors[a.status] || statusColors.Confirmed;
+
+            return `
+                <div style="background: #FFFFFF; border: 1px solid #E1E8EE; border-radius: 16px; padding: 22px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
+                    <div style="display: flex; gap: 16px; align-items: center;">
+                        <img src="${doc ? doc.image_url : ''}" alt="Doctor" style="width: 60px; height: 60px; border-radius: 12px; object-fit: cover; border: 2px solid #E8F0F7;" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=Doctor&background=034078&color=fff';">
+                        <div>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <h4 style="margin: 0; font-size: 16px; font-weight: 700; color: #0A1128;">${doc ? doc.name : 'Specialist'}</h4>
+                                <span style="background: ${sColor.bg}; color: ${sColor.text}; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 9999px;">${a.status}</span>
+                            </div>
+                            <div style="font-size: 13px; color: #034078; font-weight: 600; margin-top: 2px;">${doc ? doc.specialization : ''} &bull; ${doc ? doc.clinic_name : ''}</div>
+                            <div style="font-size: 12px; color: #64748B; margin-top: 4px;">📅 Date: <strong>${a.appointment_date}</strong> &bull; ⏱ Time: <strong>${a.time_slot || a.appointment_time}</strong> &bull; Ref: <strong>${a.booking_ref}</strong></div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <a href="../receipt.html?ref=${a.booking_ref}" class="btn btn-outline btn-sm" style="font-weight: 700;">Digital Pass</a>
+                        <a href="./appointment-details.html?ref=${a.booking_ref}" class="btn btn-primary btn-sm" style="font-weight: 700;">View Details</a>
+                        ${(a.status === 'Confirmed' || a.status === 'Pending') ? `
+                            <button type="button" onclick="openCancelModal('${a.booking_ref}')" class="btn btn-outline btn-sm" style="color: #EF4444; border-color: #FCA5A5; font-weight: 700;">Cancel</button>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    window.openCancelModal = function(ref) {
+        document.getElementById('cancelApptId').value = ref;
+        document.getElementById('cancelModal').style.display = 'flex';
+    };
+
+    document.getElementById('confirmCancelBtn').addEventListener('click', () => {
+        const ref = document.getElementById('cancelApptId').value;
+        window.apoDB.updateAppointmentStatus(ref, 'Cancelled', 'Cancelled by patient');
+        document.getElementById('cancelModal').style.display = 'none';
+        window.showToast('Appointment cancelled and full refund initiated.', 'info');
+        renderList();
+    });
+
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.tab-btn').forEach(b => {
+                b.style.background = '#fff';
+                b.style.color = '#334155';
+                b.style.borderColor = '#CBD5E1';
+            });
+            this.style.background = '#034078';
+            this.style.color = '#fff';
+            this.style.borderColor = '#034078';
+            currentTab = this.getAttribute('data-tab');
+            renderList();
+        });
+    });
+
+    renderList();
+});
+</script>
+</body>
+</html>
